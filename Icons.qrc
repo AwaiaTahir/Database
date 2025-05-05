@@ -1,0 +1,48 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Resocrces/add student.png</file>
+        <file>Resocrces/dashboard1.png</file>
+        <file>Resocrces/dashboard2.png</file>
+        <file>Resocrces/dashboardsmall1.png</file>
+        <file>Resocrces/dashboardsmall2.png</file>
+        <file>Resocrces/delete.png</file>
+        <file>Resocrces/edit.png</file>
+        <file>Resocrces/excel.png</file>
+        <file>Resocrces/logosmall2.png</file>
+        <file>Resocrces/logo.png</file>
+        <file>RE/finances1.png</file>
+        <file>RE/finances2.png</file>
+        <file>RE/finances3.png</file>
+        <file>RE/finances4.png</file>
+        <file>RE/financessmall1.png</file>
+        <file>RE/financessmall2.png</file>
+        <file>RE/institution1.png</file>
+        <file>RE/institution2.png</file>
+        <file>RE/institutionsmall1.png</file>
+        <file>RE/institutionsmall2.png</file>
+        <file>RE/menu.png</file>
+        <file>RE/pdf.png</file>
+        <file>RE/profile.png</file>
+        <file>RE/search.png</file>
+        <file>RE/settings1.png</file>
+        <file>RE/settings2.png</file>
+        <file>RE/settingssmall1.png</file>
+        <file>RE/settingssmall2.png</file>
+        <file>RE/signout1.png</file>
+        <file>RE/signout2.png</file>
+        <file>RE/signoutsmall1.png</file>
+        <file>RE/signoutsmall2.png</file>
+        <file>RE/students1.png</file>
+        <file>RE/students2.png</file>
+        <file>RE/students3.png</file>
+        <file>RE/students4.png</file>
+        <file>RE/studentssmall1.png</file>
+        <file>RE/studentssmall2.png</file>
+        <file>RE/teachers1.png</file>
+        <file>RE/teachers2.png</file>
+        <file>RE/teachers3.png</file>
+        <file>RE/teachers4.png</file>
+        <file>RE/teacherssmall1.png</file>
+        <file>RE/teacherssmall2.png</file>
+    </qresource>
+</RCC>
