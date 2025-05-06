@@ -1,0 +1,46 @@
+#include "dialog.h"
+#include "ui_dialog.h"
+#include <QFileDialog>
+#include <QPixmap>
+
+Dialog::Dialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Dialog)
+{
+    ui->setupUi(this);
+    connect(ui->saveButton, &QPushButton::clicked, this, &Dialog::accept);
+}
+
+Dialog::~Dialog()
+{
+    delete ui;
+}
+
+void Dialog::on_selectPhotoButton_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Select Photo", "", "Images (*.png *.jpg *.jpeg)");
+    if (!fileName.isEmpty()) {
+        selectedImagePath = fileName;
+
+        // Optional: Show preview inside the dialog
+        // QPixmap pix(fileName);
+        // ui->photoPreviewLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
+    }
+}
+
+QString Dialog::getSelectedImagePath() const {
+    return selectedImagePath;
+}
+
+StudentInfo Dialog::getStudentInfo() const {
+    StudentInfo s;
+    s.name = ui->nameLineEdit->text();
+    s.address = ui->addressLineEdit->text();
+    s.phone = ui->phoneLineEdit->text();
+    s.email = ui->emailLineEdit->text();
+    s.gender = ui->genderComboBox->currentText();
+    s.className = ui->classComboBox->currentText();
+    s.dob = ui->dobDateEdit->date();
+    s.imagePath = selectedImagePath;
+    return s;
+}

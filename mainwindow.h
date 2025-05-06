@@ -30,5 +30,12 @@ private:
     void switch_to_fbudget_page();
     void switch_to_fexpenses_page();
     void switch_to_foverview_page();
+    void students_context_menu();
+    void teachers_context_menu();
+    void finance_context_menu();
+    void show_custom_context_menu(QWidget *button, const QStringList &menu_items);
+    void handle_menu_item_click();
+    void Open_Add_Student_Dialog();
+    void connectToDatabase();
 };
 #endif // MAINWINDOW_H
