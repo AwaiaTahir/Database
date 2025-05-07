@@ -28,31 +28,23 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_institution_page);
 
     connect(ui->s_info, &QPushButton::clicked, this, &MainWindow::switch_to_sinfo_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_sinfo_page);
 
     connect(ui->s_transactions, &QPushButton::clicked, this, &MainWindow::switch_to_stransaction_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_stransaction_page);
 
     connect(ui->s_payment, &QPushButton::clicked, this, &MainWindow::switch_to_spayment_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_spayment_page);
 
     connect(ui->t_info, &QPushButton::clicked, this, &MainWindow::switch_to_tinfo_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_tinfo_page);
 
     connect(ui->t_salaries, &QPushButton::clicked, this, &MainWindow::switch_to_tsalaries_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_tsalaries_page);
 
     connect(ui->t_transactions, &QPushButton::clicked, this, &MainWindow::switch_to_ttransaction_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_ttransaction_page);
 
     connect(ui->f_budgets, &QPushButton::clicked, this, &MainWindow::switch_to_fbudget_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_fbudget_page);
 
     connect(ui->f_expenses, &QPushButton::clicked, this, &MainWindow::switch_to_fexpenses_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_fexpenses_page);
 
     connect(ui->f_overview, &QPushButton::clicked, this, &MainWindow::switch_to_foverview_page);
-    // connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_foverview_page);
+
     ui->pushButton_4->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->teacher2->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->finance2->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -64,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Add_Student, &QPushButton::clicked, this, &MainWindow::Open_Add_Student_Dialog);
 
     connectToDatabase();
+    loadStudentData();
 }
 
 MainWindow::~MainWindow()
@@ -188,25 +181,14 @@ void MainWindow::handle_menu_item_click() {
 }
 
 
-// void MainWindow::Open_Add_Student_Dialog()
-// {
-//     Dialog dialog(this);
-//     if (dialog.exec() == QDialog::Accepted) {
-//         QString imagePath = dialog.getSelectedImagePath();
-//         if (!imagePath.isEmpty()) {
-//             QPixmap pix(imagePath);
-//             ui->studentPhotoLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
-//         }
-//     }
-// }
 
 void MainWindow::connectToDatabase() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("127.0.0.1");
     db.setPort(3306);
     db.setDatabaseName("Academy");
-    db.setUserName("root");  // e.g., root
-    db.setPassword("Awais0696");  // e.g., password
+    db.setUserName("root");
+    db.setPassword("Awais0696");
 
     if (!db.open()) {
         qDebug() << "Database connection failed:" << db.lastError().text();
@@ -233,7 +215,7 @@ void MainWindow::Open_Add_Student_Dialog() {
         query.bindValue(":email", student.email);
         query.bindValue(":gender", student.gender);
         query.bindValue(":class", student.className);
-        query.bindValue(":dob", student.dob.toString("yyyy-MM-dd"));  // Format DOB
+        query.bindValue(":dob", student.dob.toString("yyyy-MM-dd"));
         query.bindValue(":image_path", student.imagePath);
 
         if (query.exec()) {
@@ -242,15 +224,45 @@ void MainWindow::Open_Add_Student_Dialog() {
             qDebug() << "❌ Failed to insert student info:" << query.lastError().text();
         }
 
-        // 2. Display on Main Window
         ui->studentNameLabel->setText(student.name);
         ui->studentPhoneLabel->setText(student.phone);
         ui->studentEmailLabel->setText(student.email);
         ui->studentClassLabel->setText(student.className);
-        ui->studentDOBLabel->setText(student.dob.toString("dd-MM-yyyy"));  // Display format
+        ui->studentDOBLabel->setText(student.dob.toString("dd-MM-yyyy"));
 
         QPixmap pix(student.imagePath);
         ui->studentPhotoLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
+    }
+}
+
+void MainWindow::loadStudentData()
+{
+    QSqlQuery query("SELECT name, phone, email, class, dob, image_path FROM students");
+
+    if (!query.exec()) {
+        qDebug() << "❌ Failed to fetch student data:" << query.lastError().text();
+        return;
+    }
+
+    if (query.next()) {
+        QString name = query.value(0).toString();
+        QString phone = query.value(1).toString();
+        QString email = query.value(2).toString();
+        QString className = query.value(3).toString();
+        QDate dob = query.value(4).toDate();
+        QString imagePath = query.value(5).toString();
+
+        ui->studentNameLabel->setText(name);
+        ui->studentPhoneLabel->setText(phone);
+        ui->studentEmailLabel->setText(email);
+        ui->studentClassLabel->setText(className);
+        ui->studentDOBLabel->setText(dob.toString("dd-MM-yyyy"));
+
+        QPixmap pix(imagePath);
+        ui->studentPhotoLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
+        // ui->studentPhotoLabel->setStyleSheet("border-radius : 10px;");
+    } else {
+        qDebug() << "ℹ️ No student data found.";
     }
 }
 

@@ -37,5 +37,6 @@ private:
     void handle_menu_item_click();
     void Open_Add_Student_Dialog();
     void connectToDatabase();
+    void loadStudentData();
 };
 #endif // MAINWINDOW_H

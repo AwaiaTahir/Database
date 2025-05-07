@@ -21,10 +21,6 @@ void Dialog::on_selectPhotoButton_clicked()
     QString fileName = QFileDialog::getOpenFileName(this, "Select Photo", "", "Images (*.png *.jpg *.jpeg)");
     if (!fileName.isEmpty()) {
         selectedImagePath = fileName;
-
-        // Optional: Show preview inside the dialog
-        // QPixmap pix(fileName);
-        // ui->photoPreviewLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
     }
 }
 
