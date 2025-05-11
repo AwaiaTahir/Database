@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
+#include "AttendanceCircleWidget.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,5 +41,11 @@ private:
     void Open_Add_Student_Dialog();
     void connectToDatabase();
     void loadStudentData();
+    void searchStudents(const QString &text);
+    void loadSelectedStudent(QListWidgetItem *item);
+    void deleteCurrentStudent();
+    void editCurrentStudent();
+    AttendanceCircleWidget *attendanceChart;
+
 };
 #endif // MAINWINDOW_H

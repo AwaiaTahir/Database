@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "AttendanceCircleWidget.h"
 #include <QPixmap>
 #include "dialog.h"
 #include <QMenu>
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->searchResultsList->hide();
     ui->icon_text_widget->setHidden(true);
     ui->students_dropdown->setHidden(true);
     ui->teachers_dropdown->setHidden(true);
@@ -55,8 +57,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->Add_Student, &QPushButton::clicked, this, &MainWindow::Open_Add_Student_Dialog);
 
+    connect(ui->searchBar, &QLineEdit::textChanged, this, &MainWindow::searchStudents);
+    connect(ui->searchResultsList, &QListWidget::itemClicked, this, &MainWindow::loadSelectedStudent);
+
+
+    attendanceChart = new AttendanceCircleWidget(this);
+    QVBoxLayout *vLayout = new QVBoxLayout(ui->frame_attendance);
+    vLayout->addWidget(attendanceChart);
+
+
+    connect(ui->deleteStudentButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentStudent);
+
+    connect(ui->editStudentButton, &QPushButton::clicked, this, &MainWindow::editCurrentStudent);
+
     connectToDatabase();
     loadStudentData();
+
 }
 
 MainWindow::~MainWindow()
@@ -202,7 +218,6 @@ void MainWindow::Open_Add_Student_Dialog() {
     if (dialog.exec() == QDialog::Accepted) {
         StudentInfo student = dialog.getStudentInfo();
 
-        // 1. Insert into MySQL
         QSqlQuery query;
         query.prepare(R"(
             INSERT INTO students (name, address, phone, email, gender, class, dob, image_path)
@@ -219,9 +234,9 @@ void MainWindow::Open_Add_Student_Dialog() {
         query.bindValue(":image_path", student.imagePath);
 
         if (query.exec()) {
-            qDebug() << "✅ Student info inserted into the database.";
+            qDebug() << "Student info inserted into the database.";
         } else {
-            qDebug() << "❌ Failed to insert student info:" << query.lastError().text();
+            qDebug() << "Failed to insert student info:" << query.lastError().text();
         }
 
         ui->studentNameLabel->setText(student.name);
@@ -235,12 +250,68 @@ void MainWindow::Open_Add_Student_Dialog() {
     }
 }
 
-void MainWindow::loadStudentData()
+void MainWindow::loadSelectedStudent(QListWidgetItem *item)
 {
-    QSqlQuery query("SELECT name, phone, email, class, dob, image_path FROM students");
+    QString selectedName = item->text();
+
+    QSqlQuery query;
+    query.prepare("SELECT name, phone, email, class, dob, image_path, attendance FROM students WHERE name = :name");
+    query.bindValue(":name", selectedName);
+
+    if (query.exec() && query.next()) {
+        ui->studentNameLabel->setText(query.value(0).toString());
+        ui->studentPhoneLabel->setText(query.value(1).toString());
+        ui->studentEmailLabel->setText(query.value(2).toString());
+        ui->studentClassLabel->setText(query.value(3).toString());
+        ui->studentDOBLabel->setText(query.value(4).toDate().toString("dd-MM-yyyy"));
+        int attendance = query.value(6).toInt();
+        attendanceChart->setPercentage(attendance);
+
+        QString imagePath = query.value(5).toString();
+        QPixmap pix(imagePath);
+        ui->studentPhotoLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
+
+        ui->searchResultsList->hide();
+    } else {
+        qDebug() << "Failed to load selected student info:" << query.lastError().text();
+    }
+}
+
+void MainWindow::searchStudents(const QString &text)
+{
+    ui->searchResultsList->clear();
+
+    if (text.trimmed().isEmpty()) {
+        ui->searchResultsList->hide();
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare("SELECT name FROM students WHERE name LIKE :name");
+    query.bindValue(":name", "%" + text + "%");
 
     if (!query.exec()) {
-        qDebug() << "❌ Failed to fetch student data:" << query.lastError().text();
+        qDebug() << "Search query failed:" << query.lastError().text();
+        return;
+    }
+
+    while (query.next()) {
+        QString name = query.value(0).toString();
+        ui->searchResultsList->addItem(name);
+    }
+
+    ui->searchResultsList->setVisible(ui->searchResultsList->count() > 0);
+}
+
+
+void MainWindow::loadStudentData()
+{
+    QSqlQuery query;
+    query.prepare("SELECT name, phone, email, class, dob, image_path, attendance FROM students");
+
+
+    if (!query.exec()) {
+        qDebug() << "Failed to fetch student data:" << query.lastError().text();
         return;
     }
 
@@ -251,6 +322,8 @@ void MainWindow::loadStudentData()
         QString className = query.value(3).toString();
         QDate dob = query.value(4).toDate();
         QString imagePath = query.value(5).toString();
+        int attendance = query.value(6).toInt();
+        attendanceChart->setPercentage(attendance);
 
         ui->studentNameLabel->setText(name);
         ui->studentPhoneLabel->setText(phone);
@@ -260,11 +333,96 @@ void MainWindow::loadStudentData()
 
         QPixmap pix(imagePath);
         ui->studentPhotoLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
-        // ui->studentPhotoLabel->setStyleSheet("border-radius : 10px;");
     } else {
-        qDebug() << "ℹ️ No student data found.";
+        qDebug() << "No student data found.";
     }
 }
+
+void MainWindow::deleteCurrentStudent() {
+    QString studentName = ui->studentNameLabel->text();
+
+    if (studentName.isEmpty()) {
+        qDebug() << "No student selected to delete.";
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare("DELETE FROM students WHERE name = :name");
+    query.bindValue(":name", studentName);
+
+    if (query.exec()) {
+        qDebug() << "Student deleted successfully.";
+        ui->studentNameLabel->clear();
+        ui->studentPhoneLabel->clear();
+        ui->studentEmailLabel->clear();
+        ui->studentClassLabel->clear();
+        ui->studentDOBLabel->clear();
+        ui->studentPhotoLabel->clear();
+        attendanceChart->setPercentage(0); // Reset attendance
+    } else {
+        qDebug() << "Failed to delete student:" << query.lastError().text();
+    }
+}
+
+void MainWindow::editCurrentStudent() {
+    QString studentName = ui->studentNameLabel->text();
+    if (studentName.isEmpty()) {
+        qDebug() << "⚠️ No student selected to edit.";
+        return;
+    }
+
+    // Load current data into Dialog
+    Dialog dialog(this);
+    dialog.setWindowTitle("Edit Student Info");
+
+    // Pre-fill the dialog with current student data
+    StudentInfo currentInfo;
+    currentInfo.name = studentName;
+    currentInfo.phone = ui->studentPhoneLabel->text();
+    currentInfo.email = ui->studentEmailLabel->text();
+    currentInfo.className = ui->studentClassLabel->text();
+    currentInfo.dob = QDate::fromString(ui->studentDOBLabel->text(), "dd-MM-yyyy");
+    currentInfo.imagePath = "";
+    currentInfo.address = "";
+    currentInfo.gender = "";
+
+    dialog.setStudentInfo(currentInfo);
+
+
+    if (dialog.exec() == QDialog::Accepted) {
+        StudentInfo updated = dialog.getStudentInfo();
+
+        QSqlQuery query;
+        query.prepare(R"(
+            UPDATE students SET
+            address = :address,
+            phone = :phone,
+            email = :email,
+            gender = :gender,
+            class = :class,
+            dob = :dob,
+            image_path = :image_path
+            WHERE name = :name
+        )");
+
+        query.bindValue(":address", updated.address);
+        query.bindValue(":phone", updated.phone);
+        query.bindValue(":email", updated.email);
+        query.bindValue(":gender", updated.gender);
+        query.bindValue(":class", updated.className);
+        query.bindValue(":dob", updated.dob.toString("yyyy-MM-dd"));
+        query.bindValue(":image_path", updated.imagePath);
+        query.bindValue(":name", studentName);  // Again, better to use ID
+
+        if (query.exec()) {
+            qDebug() << "Student info updated.";
+            loadStudentData();  // Refresh main view
+        } else {
+            qDebug() << "Update failed:" << query.lastError().text();
+        }
+    }
+}
+
 
 
 

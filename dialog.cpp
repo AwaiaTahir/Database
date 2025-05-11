@@ -40,3 +40,13 @@ StudentInfo Dialog::getStudentInfo() const {
     s.imagePath = selectedImagePath;
     return s;
 }
+
+void Dialog::setStudentInfo(const StudentInfo &info) {
+    ui->nameLineEdit->setText(info.name);
+    ui->phoneLineEdit->setText(info.phone);
+    ui->emailLineEdit->setText(info.email);
+    ui->classComboBox->setCurrentText(info.className);  // For QComboBox
+    ui->dobDateEdit->setDate(info.dob);
+    // set other fields like gender, address, etc.
+}
+

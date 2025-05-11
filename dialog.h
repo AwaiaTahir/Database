@@ -24,6 +24,7 @@ public:
 
     QString getSelectedImagePath() const;
     StudentInfo getStudentInfo() const;
+    void setStudentInfo(const StudentInfo &info);
 
 private slots:
     void on_selectPhotoButton_clicked();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1520</width>
-    <height>788</height>
+    <width>1532</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>-4</y>
-      <width>1509</width>
-      <height>769</height>
+      <width>1521</width>
+      <height>771</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -300,6 +300,886 @@ QPushButton:checked{
         </item>
        </layout>
       </widget>
+     </item>
+     <item row="0" column="2">
+      <layout class="QVBoxLayout" name="verticalLayout_18">
+       <item>
+        <widget class="QWidget" name="widget_3" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>95</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>95</height>
+          </size>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <property name="spacing">
+             <number>7</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="pushButton_30">
+              <property name="styleSheet">
+               <string notr="true">border:none;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="Icons.qrc">
+                <normaloff>:/new/prefix1/RE/menu.png</normaloff>:/new/prefix1/RE/menu.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>29</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_8">
+                <property name="font">
+                 <font>
+                  <family>Berlin Sans FB</family>
+                  <pointsize>15</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Hello, World</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_9">
+                <property name="font">
+                 <font>
+                  <family>Berlin Sans FB</family>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(68, 68, 68);</string>
+                </property>
+                <property name="text">
+                 <string>Welcome to your page</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Policy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>400</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_16">
+            <item>
+             <widget class="QLineEdit" name="searchBar">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>38</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>400</width>
+                <height>38</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLineEdit{
+	background-color:white;
+	padding-left:20px;
+	border:1px solid gray;
+	border-radius:10px;
+}</string>
+              </property>
+              <property name="placeholderText">
+               <string>Search Students</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="searchResultsList">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>400</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QListWidget {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #12B298;
+        border-radius: 6px;
+        padding: 4px;
+    }
+
+    QListWidget::item {
+        padding: 8px;
+        border-bottom: 1px solid #2a2a2a;
+    }
+
+    QListWidget::item:hover {
+        background-color: #2e2e2e;
+        color: #12B298;
+    }
+
+    QListWidget::item:selected {
+        background-color: #12B298;
+        color: #1e1e1e;
+    }</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_4" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>920</width>
+           <height>661</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>1176</width>
+           <height>661</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <widget class="QStackedWidget" name="stackedWidget">
+          <property name="geometry">
+           <rect>
+            <x>-4</x>
+            <y>0</y>
+            <width>1177</width>
+            <height>661</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>1000000</width>
+            <height>100000</height>
+           </size>
+          </property>
+          <property name="currentIndex">
+           <number>2</number>
+          </property>
+          <widget class="QWidget" name="page">
+           <widget class="QLabel" name="label_11">
+            <property name="geometry">
+             <rect>
+              <x>300</x>
+              <y>222</y>
+              <width>223</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>DASHBOARD</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_2">
+           <widget class="QLabel" name="label_12">
+            <property name="geometry">
+             <rect>
+              <x>276</x>
+              <y>260</y>
+              <width>223</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>INSTITUTION</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_3">
+           <widget class="QFrame" name="frame">
+            <property name="geometry">
+             <rect>
+              <x>32</x>
+              <y>8</y>
+              <width>551</width>
+              <height>231</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(39, 39, 39);
+border : 1px solid black;
+border-radius : 18px;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <widget class="QLabel" name="studentPhotoLabel">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>18</y>
+               <width>159</width>
+               <height>197</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : 1px solid gray;
+border-radius : 20px;</string>
+             </property>
+             <property name="text">
+              <string>Photo</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QWidget" name="layoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>328</x>
+               <y>46</y>
+               <width>211</width>
+               <height>113</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_15">
+              <item>
+               <widget class="QLabel" name="studentDOBLabel_4">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color: rgb(168, 168, 168);</string>
+                </property>
+                <property name="text">
+                 <string>Email</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentEmailLabel">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color : white;</string>
+                </property>
+                <property name="text">
+                 <string>Email</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentDOBLabel_5">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color: rgb(168, 168, 168);</string>
+                </property>
+                <property name="text">
+                 <string>Phone</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentPhoneLabel">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color : white;</string>
+                </property>
+                <property name="text">
+                 <string>Phone</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="layoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>180</x>
+               <y>10</y>
+               <width>131</width>
+               <height>152</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <widget class="QLabel" name="studentNameLabel">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color : white;</string>
+                </property>
+                <property name="text">
+                 <string>Name</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentDOBLabel_2">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color: rgb(168, 168, 168);</string>
+                </property>
+                <property name="text">
+                 <string>Date Of Birth</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentDOBLabel">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color : white;</string>
+                </property>
+                <property name="text">
+                 <string>DOB</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentDOBLabel_3">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color: rgb(168, 168, 168);</string>
+                </property>
+                <property name="text">
+                 <string>Class</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="studentClassLabel">
+                <property name="font">
+                 <font>
+                  <family>Poppins</family>
+                  <pointsize>10</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border : none;
+color : white;</string>
+                </property>
+                <property name="text">
+                 <string>Class</string>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="layoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>178</x>
+               <y>172</y>
+               <width>247</width>
+               <height>39</height>
+              </rect>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QPushButton" name="editStudentButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Update Student</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="deleteStudentButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	background-color: rgb(202, 0, 0);
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Delete Student</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QPushButton" name="Add_Student">
+            <property name="geometry">
+             <rect>
+              <x>854</x>
+              <y>600</y>
+              <width>109</width>
+              <height>37</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+            </property>
+            <property name="text">
+             <string>Add Student</string>
+            </property>
+           </widget>
+           <widget class="QFrame" name="frame_2">
+            <property name="geometry">
+             <rect>
+              <x>604</x>
+              <y>8</y>
+              <width>551</width>
+              <height>231</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(39, 39, 39);
+border : 1px solid black;
+border-radius : 18px;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <widget class="QFrame" name="frame_attendance">
+             <property name="geometry">
+              <rect>
+               <x>322</x>
+               <y>34</y>
+               <width>169</width>
+               <height>167</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QFrame {
+    background-color: transparent;
+    border : none;
+}
+</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Shape::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Shadow::Raised</enum>
+             </property>
+            </widget>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_4">
+           <widget class="QLabel" name="label_14">
+            <property name="geometry">
+             <rect>
+              <x>222</x>
+              <y>258</y>
+              <width>315</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Students Payments</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_5">
+           <widget class="QLabel" name="label_15">
+            <property name="geometry">
+             <rect>
+              <x>252</x>
+              <y>250</y>
+              <width>315</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Students Transactions</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_6">
+           <widget class="QLabel" name="label_16">
+            <property name="geometry">
+             <rect>
+              <x>226</x>
+              <y>264</y>
+              <width>315</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Teacher Information</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_7">
+           <widget class="QLabel" name="label_17">
+            <property name="geometry">
+             <rect>
+              <x>256</x>
+              <y>216</y>
+              <width>251</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Teacher Salaries</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_8">
+           <widget class="QLabel" name="label_18">
+            <property name="geometry">
+             <rect>
+              <x>254</x>
+              <y>234</y>
+              <width>315</width>
+              <height>143</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Teacher Transactions</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_10">
+           <widget class="QLabel" name="label_20">
+            <property name="geometry">
+             <rect>
+              <x>334</x>
+              <y>272</y>
+              <width>137</width>
+              <height>93</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Expenses</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_9">
+           <widget class="QLabel" name="label_19">
+            <property name="geometry">
+             <rect>
+              <x>302</x>
+              <y>238</y>
+              <width>115</width>
+              <height>93</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Budgets</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_11">
+           <widget class="QLabel" name="label_21">
+            <property name="geometry">
+             <rect>
+              <x>264</x>
+              <y>270</y>
+              <width>275</width>
+              <height>93</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Bussiness Overview</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_12">
+           <widget class="QLabel" name="label_22">
+            <property name="geometry">
+             <rect>
+              <x>340</x>
+              <y>256</y>
+              <width>167</width>
+              <height>93</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Berlin Sans FB</family>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 0, 0);
+background-color:none;</string>
+            </property>
+            <property name="text">
+             <string>Settings</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="0" column="1">
       <widget class="QWidget" name="widget_2" native="true">
@@ -884,821 +1764,6 @@ QPushButton:checked{
        </layout>
       </widget>
      </item>
-     <item row="0" column="2">
-      <layout class="QVBoxLayout" name="verticalLayout_18">
-       <item>
-        <widget class="QWidget" name="widget_3" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>95</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>95</height>
-          </size>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <property name="spacing">
-             <number>7</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="pushButton_30">
-              <property name="styleSheet">
-               <string notr="true">border:none;</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="Icons.qrc">
-                <normaloff>:/new/prefix1/RE/menu.png</normaloff>:/new/prefix1/RE/menu.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>29</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_13">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="label_8">
-                <property name="font">
-                 <font>
-                  <family>Berlin Sans FB</family>
-                  <pointsize>15</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Hello, World</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_9">
-                <property name="font">
-                 <font>
-                  <family>Berlin Sans FB</family>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">color: rgb(68, 68, 68);</string>
-                </property>
-                <property name="text">
-                 <string>Welcome to your page</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>332</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <property name="rightMargin">
-             <number>20</number>
-            </property>
-            <item>
-             <widget class="QLineEdit" name="lineEdit">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>38</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>38</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLineEdit{
-	background-color:white;
-	padding-left:20px;
-	border:1px solid gray;
-	border-radius:10px;
-}</string>
-              </property>
-              <property name="placeholderText">
-               <string>Search Here...</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_10">
-              <property name="maximumSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="pixmap">
-               <pixmap resource="Icons.qrc">:/new/prefix1/RE/profile.png</pixmap>
-              </property>
-              <property name="scaledContents">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_4" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>920</width>
-           <height>661</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>791</width>
-           <height>661</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <widget class="QStackedWidget" name="stackedWidget">
-          <property name="geometry">
-           <rect>
-            <x>-4</x>
-            <y>0</y>
-            <width>1163</width>
-            <height>661</height>
-           </rect>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>1000000</width>
-            <height>100000</height>
-           </size>
-          </property>
-          <property name="currentIndex">
-           <number>2</number>
-          </property>
-          <widget class="QWidget" name="page">
-           <widget class="QLabel" name="label_11">
-            <property name="geometry">
-             <rect>
-              <x>300</x>
-              <y>222</y>
-              <width>223</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>DASHBOARD</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_2">
-           <widget class="QLabel" name="label_12">
-            <property name="geometry">
-             <rect>
-              <x>276</x>
-              <y>260</y>
-              <width>223</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>INSTITUTION</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_3">
-           <widget class="QFrame" name="frame">
-            <property name="geometry">
-             <rect>
-              <x>32</x>
-              <y>8</y>
-              <width>551</width>
-              <height>231</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(39, 39, 39);
-border : 1px solid black;
-border-radius : 18px;</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Shape::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Shadow::Raised</enum>
-            </property>
-            <widget class="QLabel" name="studentPhotoLabel">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>18</y>
-               <width>159</width>
-               <height>197</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">border : 1px solid gray;
-border-radius : 20px;</string>
-             </property>
-             <property name="text">
-              <string>Photo</string>
-             </property>
-             <property name="scaledContents">
-              <bool>true</bool>
-             </property>
-            </widget>
-            <widget class="QWidget" name="layoutWidget">
-             <property name="geometry">
-              <rect>
-               <x>178</x>
-               <y>178</y>
-               <width>247</width>
-               <height>39</height>
-              </rect>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QPushButton" name="Add_Student_2">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-	background-color : #34D481;
-	color : white;
-	border : none;
-	border-radius : 8px;
-	font-weight : bold;
-	font-size : 15px;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Send Message</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="Add_Student_3">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-	background-color : none;
-	color : white;
-	border : 2px solid  white;
-	border-radius : 8px;
-	font-weight : bold;
-	font-size : 15px;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Connect</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="layoutWidget">
-             <property name="geometry">
-              <rect>
-               <x>328</x>
-               <y>46</y>
-               <width>211</width>
-               <height>113</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_15">
-              <item>
-               <widget class="QLabel" name="studentDOBLabel_4">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color: rgb(168, 168, 168);</string>
-                </property>
-                <property name="text">
-                 <string>Email</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentEmailLabel">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color : white;</string>
-                </property>
-                <property name="text">
-                 <string>Email</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentDOBLabel_5">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color: rgb(168, 168, 168);</string>
-                </property>
-                <property name="text">
-                 <string>Phone</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentPhoneLabel">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color : white;</string>
-                </property>
-                <property name="text">
-                 <string>Phone</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="layoutWidget">
-             <property name="geometry">
-              <rect>
-               <x>180</x>
-               <y>10</y>
-               <width>131</width>
-               <height>152</height>
-              </rect>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_14">
-              <item>
-               <widget class="QLabel" name="studentNameLabel">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>14</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color : white;</string>
-                </property>
-                <property name="text">
-                 <string>Name</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentDOBLabel_2">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color: rgb(168, 168, 168);</string>
-                </property>
-                <property name="text">
-                 <string>Date Of Birth</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentDOBLabel">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color : white;</string>
-                </property>
-                <property name="text">
-                 <string>DOB</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentDOBLabel_3">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color: rgb(168, 168, 168);</string>
-                </property>
-                <property name="text">
-                 <string>Class</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="studentClassLabel">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>10</pointsize>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">border : none;
-color : white;</string>
-                </property>
-                <property name="text">
-                 <string>Class</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QPushButton" name="Add_Student">
-            <property name="geometry">
-             <rect>
-              <x>690</x>
-              <y>612</y>
-              <width>99</width>
-              <height>37</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton{
-	background-color : #34D481;
-	color : white;
-	border : none;
-	border-radius : 8px;
-	font-weight : bold;
-	font-size : 15px;
-}</string>
-            </property>
-            <property name="text">
-             <string>Add Student</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_4">
-           <widget class="QLabel" name="label_14">
-            <property name="geometry">
-             <rect>
-              <x>222</x>
-              <y>258</y>
-              <width>315</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Students Payments</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_5">
-           <widget class="QLabel" name="label_15">
-            <property name="geometry">
-             <rect>
-              <x>252</x>
-              <y>250</y>
-              <width>315</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Students Transactions</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_6">
-           <widget class="QLabel" name="label_16">
-            <property name="geometry">
-             <rect>
-              <x>226</x>
-              <y>264</y>
-              <width>315</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Teacher Information</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_7">
-           <widget class="QLabel" name="label_17">
-            <property name="geometry">
-             <rect>
-              <x>256</x>
-              <y>216</y>
-              <width>251</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Teacher Salaries</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_8">
-           <widget class="QLabel" name="label_18">
-            <property name="geometry">
-             <rect>
-              <x>254</x>
-              <y>234</y>
-              <width>315</width>
-              <height>143</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Teacher Transactions</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_10">
-           <widget class="QLabel" name="label_20">
-            <property name="geometry">
-             <rect>
-              <x>334</x>
-              <y>272</y>
-              <width>137</width>
-              <height>93</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Expenses</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_9">
-           <widget class="QLabel" name="label_19">
-            <property name="geometry">
-             <rect>
-              <x>302</x>
-              <y>238</y>
-              <width>115</width>
-              <height>93</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Budgets</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_11">
-           <widget class="QLabel" name="label_21">
-            <property name="geometry">
-             <rect>
-              <x>264</x>
-              <y>270</y>
-              <width>275</width>
-              <height>93</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Bussiness Overview</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="page_12">
-           <widget class="QLabel" name="label_22">
-            <property name="geometry">
-             <rect>
-              <x>340</x>
-              <y>256</y>
-              <width>167</width>
-              <height>93</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
-            <property name="text">
-             <string>Settings</string>
-            </property>
-           </widget>
-          </widget>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </item>
     </layout>
    </widget>
   </widget>
@@ -1880,7 +1945,7 @@ background-color:none;</string>
     </hint>
     <hint type="destinationlabel">
      <x>58</x>
-     <y>805</y>
+     <y>759</y>
     </hint>
    </hints>
   </connection>
@@ -1896,7 +1961,7 @@ background-color:none;</string>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
-     <y>796</y>
+     <y>759</y>
     </hint>
    </hints>
   </connection>

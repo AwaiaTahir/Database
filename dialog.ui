@@ -172,6 +172,16 @@ QComboBox{
          <widget class="QComboBox" name="classComboBox">
           <item>
            <property name="text">
+            <string>9th</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>10th</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
             <string>1st Year</string>
            </property>
           </item>
@@ -407,13 +417,36 @@ QComboBox{
       <property name="text">
        <string>Cancel</string>
       </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>460</x>
+     <y>590</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>869</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <designerdata>
   <property name="gridDeltaX">
    <number>2</number>
