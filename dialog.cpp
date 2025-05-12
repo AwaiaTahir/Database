@@ -45,8 +45,11 @@ void Dialog::setStudentInfo(const StudentInfo &info) {
     ui->nameLineEdit->setText(info.name);
     ui->phoneLineEdit->setText(info.phone);
     ui->emailLineEdit->setText(info.email);
-    ui->classComboBox->setCurrentText(info.className);  // For QComboBox
+    ui->classComboBox->setCurrentText(info.className);
     ui->dobDateEdit->setDate(info.dob);
-    // set other fields like gender, address, etc.
+    ui->genderComboBox->setCurrentText(info.gender);
+    ui->addressLineEdit->setText(info.address);
+
+    selectedImagePath = info.imagePath;
 }
 

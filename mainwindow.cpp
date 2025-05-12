@@ -358,7 +358,7 @@ void MainWindow::deleteCurrentStudent() {
         ui->studentClassLabel->clear();
         ui->studentDOBLabel->clear();
         ui->studentPhotoLabel->clear();
-        attendanceChart->setPercentage(0); // Reset attendance
+        attendanceChart->setPercentage(0);
     } else {
         qDebug() << "Failed to delete student:" << query.lastError().text();
     }
@@ -367,33 +367,38 @@ void MainWindow::deleteCurrentStudent() {
 void MainWindow::editCurrentStudent() {
     QString studentName = ui->studentNameLabel->text();
     if (studentName.isEmpty()) {
-        qDebug() << "⚠️ No student selected to edit.";
+        qDebug() << "No student selected to edit.";
         return;
     }
 
-    // Load current data into Dialog
-    Dialog dialog(this);
-    dialog.setWindowTitle("Edit Student Info");
+    QString imagePath;
+    QSqlQuery query;
+    query.prepare("SELECT image_path FROM students WHERE name = :name");
+    query.bindValue(":name", studentName);
+    if (query.exec() && query.next()) {
+        imagePath = query.value("image_path").toString();
+    }
 
-    // Pre-fill the dialog with current student data
     StudentInfo currentInfo;
     currentInfo.name = studentName;
     currentInfo.phone = ui->studentPhoneLabel->text();
     currentInfo.email = ui->studentEmailLabel->text();
     currentInfo.className = ui->studentClassLabel->text();
     currentInfo.dob = QDate::fromString(ui->studentDOBLabel->text(), "dd-MM-yyyy");
-    currentInfo.imagePath = "";
-    currentInfo.address = "";
-    currentInfo.gender = "";
+    currentInfo.imagePath = imagePath;
+    currentInfo.address = "";  // Add if shown in UI
+    currentInfo.gender = "";   // Add if shown in UI
 
+    // Open edit dialog
+    Dialog dialog(this);
+    dialog.setWindowTitle("Edit Student Info");
     dialog.setStudentInfo(currentInfo);
-
 
     if (dialog.exec() == QDialog::Accepted) {
         StudentInfo updated = dialog.getStudentInfo();
 
-        QSqlQuery query;
-        query.prepare(R"(
+        QSqlQuery updateQuery;
+        updateQuery.prepare(R"(
             UPDATE students SET
             address = :address,
             phone = :phone,
@@ -405,23 +410,24 @@ void MainWindow::editCurrentStudent() {
             WHERE name = :name
         )");
 
-        query.bindValue(":address", updated.address);
-        query.bindValue(":phone", updated.phone);
-        query.bindValue(":email", updated.email);
-        query.bindValue(":gender", updated.gender);
-        query.bindValue(":class", updated.className);
-        query.bindValue(":dob", updated.dob.toString("yyyy-MM-dd"));
-        query.bindValue(":image_path", updated.imagePath);
-        query.bindValue(":name", studentName);  // Again, better to use ID
+        updateQuery.bindValue(":address", updated.address);
+        updateQuery.bindValue(":phone", updated.phone);
+        updateQuery.bindValue(":email", updated.email);
+        updateQuery.bindValue(":gender", updated.gender);
+        updateQuery.bindValue(":class", updated.className);
+        updateQuery.bindValue(":dob", updated.dob.toString("yyyy-MM-dd"));
+        updateQuery.bindValue(":image_path", updated.imagePath);
+        updateQuery.bindValue(":name", studentName);
 
-        if (query.exec()) {
+        if (updateQuery.exec()) {
             qDebug() << "Student info updated.";
-            loadStudentData();  // Refresh main view
+            loadStudentData();
         } else {
-            qDebug() << "Update failed:" << query.lastError().text();
+            qDebug() << "Update failed:" << updateQuery.lastError().text();
         }
     }
 }
+
 
 
 
