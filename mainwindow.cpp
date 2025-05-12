@@ -10,7 +10,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
-
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -346,23 +346,36 @@ void MainWindow::deleteCurrentStudent() {
         return;
     }
 
-    QSqlQuery query;
-    query.prepare("DELETE FROM students WHERE name = :name");
-    query.bindValue(":name", studentName);
+    // Confirmation prompt
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,
+                                  "Confirm Deletion",
+                                  QString("Are you sure you want to delete student '%1'?").arg(studentName),
+                                  QMessageBox::Yes | QMessageBox::No);
 
-    if (query.exec()) {
-        qDebug() << "Student deleted successfully.";
-        ui->studentNameLabel->clear();
-        ui->studentPhoneLabel->clear();
-        ui->studentEmailLabel->clear();
-        ui->studentClassLabel->clear();
-        ui->studentDOBLabel->clear();
-        ui->studentPhotoLabel->clear();
-        attendanceChart->setPercentage(0);
+    if (reply == QMessageBox::Yes) {
+        QSqlQuery query;
+        query.prepare("DELETE FROM students WHERE name = :name");
+        query.bindValue(":name", studentName);
+
+        if (query.exec()) {
+            qDebug() << "Student deleted successfully.";
+            ui->studentNameLabel->clear();
+            ui->studentPhoneLabel->clear();
+            ui->studentEmailLabel->clear();
+            ui->studentClassLabel->clear();
+            ui->studentDOBLabel->clear();
+            ui->studentPhotoLabel->clear();
+            attendanceChart->setPercentage(0);
+            loadStudentData(); // Refresh list if applicable
+        } else {
+            qDebug() << "Failed to delete student:" << query.lastError().text();
+        }
     } else {
-        qDebug() << "Failed to delete student:" << query.lastError().text();
+        qDebug() << "Deletion cancelled.";
     }
 }
+
 
 void MainWindow::editCurrentStudent() {
     QString studentName = ui->studentNameLabel->text();
