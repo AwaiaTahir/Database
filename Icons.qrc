@@ -44,5 +44,6 @@
         <file>RE/teachers4.png</file>
         <file>RE/teacherssmall1.png</file>
         <file>RE/teacherssmall2.png</file>
+        <file>RE/checkmark.svg</file>
     </qresource>
 </RCC>

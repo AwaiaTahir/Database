@@ -11,6 +11,7 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include <QMessageBox>
+#include <QCheckBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -69,10 +70,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->deleteStudentButton, &QPushButton::clicked, this, &MainWindow::deleteCurrentStudent);
 
     connect(ui->editStudentButton, &QPushButton::clicked, this, &MainWindow::editCurrentStudent);
+    connect(ui->submitAttendanceButton, &QPushButton::clicked, this, &MainWindow::submitAttendance);
+
+    ui->attendanceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
 
     connectToDatabase();
+    loadAttendanceForm();
     loadStudentData();
-
 }
 
 MainWindow::~MainWindow()
@@ -441,8 +446,143 @@ void MainWindow::editCurrentStudent() {
     }
 }
 
+void MainWindow::loadAttendanceForm() {
+    QTableWidget *table = ui->attendanceTable;
+    table->clearContents();
+    table->setRowCount(0);
+    table->setColumnCount(3);
+    table->setHorizontalHeaderLabels({"Name", "Roll No", "Present"});
+
+    QSqlDatabase db = QSqlDatabase::database();
+    if (!db.isOpen()) {
+        qDebug() << "❌ Database not open!";
+        return;
+    }
+
+    QSqlQuery query("SELECT name, roll_no FROM students");
+    int row = 0;
+
+    while (query.next()) {
+        QString name = query.value("name").toString();
+        int rollNo = query.value("roll_no").toInt();
+
+        table->insertRow(row);
+
+        QTableWidgetItem *nameItem = new QTableWidgetItem(name);
+        QTableWidgetItem *rollItem = new QTableWidgetItem(QString::number(rollNo));
+        nameItem->setFlags(nameItem->flags() ^ Qt::ItemIsEditable);
+        rollItem->setFlags(rollItem->flags() ^ Qt::ItemIsEditable);
+
+        table->setItem(row, 0, nameItem);
+        table->setItem(row, 1, rollItem);
+
+        QCheckBox *checkBox = new QCheckBox();
+        checkBox->setChecked(true);
+        table->setCellWidget(row, 2, checkBox);
+
+        row++;
+    }
+
+    table->resizeColumnsToContents();
+}
 
 
 
+void MainWindow::submitAttendance() {
+    QTableWidget *table = ui->attendanceTable;
+    QSqlDatabase db = QSqlDatabase::database();
+
+    if (!db.isOpen()) {
+        qDebug() << "❌ Database not open!";
+        return;
+    }
+
+    QDate currentDate = QDate::currentDate();
+
+    for (int row = 0; row < table->rowCount(); ++row) {
+        QString name = table->item(row, 0)->text();
+        int rollNo = table->item(row, 1)->text().toInt();
+
+        QWidget *widget = table->cellWidget(row, 2);
+        QCheckBox *checkBox = qobject_cast<QCheckBox *>(widget);
+
+        QString status = (checkBox && checkBox->isChecked()) ? "Present" : "Absent";
+
+        // Prevent duplicate entry for same date and student
+        QSqlQuery checkQuery;
+        checkQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no AND date = :date");
+        checkQuery.bindValue(":roll_no", rollNo);
+        checkQuery.bindValue(":date", currentDate);
+        checkQuery.exec();
+        checkQuery.next();
+        if (checkQuery.value(0).toInt() > 0) {
+            qDebug() << "⚠️ Attendance already exists for roll no" << rollNo << "on" << currentDate;
+            continue;
+        }
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO attendance (name, roll_no, date, status) VALUES (:name, :roll_no, :date, :status)");
+        query.bindValue(":name", name);
+        query.bindValue(":roll_no", rollNo);
+        query.bindValue(":date", currentDate);
+        query.bindValue(":status", status);
+
+        if (!query.exec()) {
+            qDebug() << "❌ Failed to insert attendance:" << query.lastError().text();
+        }
+    }
+
+    // ✅ Call percentage update only after successful submission
+    updateAttendancePercentages();
+
+    QMessageBox::information(this, "Success", "✅ Attendance submitted and percentages updated.");
+}
 
 
+void MainWindow::updateAttendancePercentages() {
+    QSqlDatabase db = QSqlDatabase::database();
+    if (!db.isOpen()) {
+        qDebug() << "❌ Database not open!";
+        return;
+    }
+
+    QSqlQuery getStudents("SELECT roll_no FROM students");
+
+    while (getStudents.next()) {
+        int rollNo = getStudents.value(0).toInt();
+
+        // Get total days this student has attendance records
+        QSqlQuery totalDaysQuery;
+        totalDaysQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no");
+        totalDaysQuery.bindValue(":roll_no", rollNo);
+        totalDaysQuery.exec();
+        totalDaysQuery.next();
+        int totalDays = totalDaysQuery.value(0).toInt();
+
+        // Get present count
+        QSqlQuery presentDaysQuery;
+        presentDaysQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no AND status = 'Present'");
+        presentDaysQuery.bindValue(":roll_no", rollNo);
+        presentDaysQuery.exec();
+        presentDaysQuery.next();
+        int presentDays = presentDaysQuery.value(0).toInt();
+
+        int percentage = 0;
+        if (totalDays > 0)
+            percentage = (presentDays * 100) / totalDays;
+
+        // Update student table
+        QSqlQuery updateQuery;
+        updateQuery.prepare("UPDATE students SET attendance = :percentage WHERE roll_no = :roll_no");
+        updateQuery.bindValue(":percentage", percentage);
+        updateQuery.bindValue(":roll_no", rollNo);
+
+        if (!updateQuery.exec()) {
+            qDebug() << "❌ Failed to update percentage for roll no" << rollNo << ":" << updateQuery.lastError().text();
+        } else {
+            qDebug() << "✅ Updated attendance for roll no" << rollNo << "→" << percentage << "%";
+        }
+    }
+
+    QMessageBox::information(this, "Updated", "✅ Attendance percentages updated in student table.");
+}

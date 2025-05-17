@@ -45,6 +45,9 @@ private:
     void loadSelectedStudent(QListWidgetItem *item);
     void deleteCurrentStudent();
     void editCurrentStudent();
+    void loadAttendanceForm();
+    void submitAttendance();
+    void updateAttendancePercentages();
     AttendanceCircleWidget *attendanceChart;
 
 };

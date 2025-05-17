@@ -514,7 +514,7 @@ QPushButton:checked{
            </size>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="page">
            <widget class="QLabel" name="label_11">
@@ -977,12 +977,12 @@ background-color:none;</string>
            </widget>
           </widget>
           <widget class="QWidget" name="page_5">
-           <widget class="QLabel" name="label_15">
+           <widget class="QLabel" name="label_13">
             <property name="geometry">
              <rect>
-              <x>252</x>
-              <y>250</y>
-              <width>315</width>
+              <x>282</x>
+              <y>274</y>
+              <width>329</width>
               <height>143</height>
              </rect>
             </property>
@@ -997,7 +997,7 @@ background-color:none;</string>
 background-color:none;</string>
             </property>
             <property name="text">
-             <string>Students Transactions</string>
+             <string>Student Transaction</string>
             </property>
            </widget>
           </widget>
@@ -1052,27 +1052,87 @@ background-color:none;</string>
            </widget>
           </widget>
           <widget class="QWidget" name="page_8">
-           <widget class="QLabel" name="label_18">
+           <widget class="QTableWidget" name="attendanceTable">
             <property name="geometry">
              <rect>
-              <x>254</x>
-              <y>234</y>
-              <width>315</width>
-              <height>143</height>
+              <x>46</x>
+              <y>14</y>
+              <width>1115</width>
+              <height>581</height>
              </rect>
             </property>
-            <property name="font">
-             <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
-             </font>
+            <property name="styleSheet">
+             <string notr="true">QTableWidget {
+    background-color: #000000;
+    gridline-color: #34D481;
+    font-size: 14px;
+    font-family: &quot;Poppins&quot;;
+    color: white;
+}
+
+QHeaderView::section {
+    background-color: #34D481;
+    color: #000000;
+    padding: 4px;
+    border: 1px solid #34D481;
+    font-family: &quot;Poppins&quot;;
+    font-size: 14px;
+}
+
+QTableWidget::item:selected {
+    background-color:#1e1e1e;
+    color: white;
+    font-family: &quot;Poppins&quot;;
+}
+
+/* Checkbox styling */
+QCheckBox {
+    spacing: 10px;
+    font-family: &quot;Poppins&quot;;
+    color: white;
+}
+
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #34D481;
+    background-color: transparent;
+    border-radius: 4px;
+}
+
+QCheckBox::indicator:checked {
+    background-color: #34D481;
+    border: 2px solid #34D481;
+	image: url(:/new/prefix1/RE/checkmark.svg);
+}
+
+QTableWidget QCheckBox {
+    margin-left: 10px;
+}
+</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="submitAttendanceButton">
+            <property name="geometry">
+             <rect>
+              <x>1048</x>
+              <y>610</y>
+              <width>113</width>
+              <height>41</height>
+             </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
+             <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
             </property>
             <property name="text">
-             <string>Teacher Transactions</string>
+             <string>Submit</string>
             </property>
            </widget>
           </widget>
