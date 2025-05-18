@@ -12,6 +12,8 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QCheckBox>
+#include "studentprogresschart.h"
+#include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -52,9 +54,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->teacher2->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->finance2->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    connect(ui->pushButton_4, &QPushButton::customContextMenuRequested, this, &MainWindow::students_context_menu);
-    connect(ui->teacher2, &QPushButton::customContextMenuRequested, this, &MainWindow::teachers_context_menu);
-    connect(ui->finance2, &QPushButton::customContextMenuRequested, this, &MainWindow::finance_context_menu);
+    connect(ui->pushButton_4, &QPushButton::clicked, this, &MainWindow::students_context_menu); //customContextMenuRequested for Right Click
+    connect(ui->teacher2, &QPushButton::clicked, this, &MainWindow::teachers_context_menu);
+    connect(ui->finance2, &QPushButton::clicked, this, &MainWindow::finance_context_menu);
 
     connect(ui->Add_Student, &QPushButton::clicked, this, &MainWindow::Open_Add_Student_Dialog);
 
@@ -74,6 +76,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->attendanceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+    QList<int> data = {30, 55, 60, 40, 25, 50, 20, 35, 40};
+    auto *progressChart = new StudentProgressChart(data);
+
+    auto *layout = new QVBoxLayout(ui->chartContainer);
+    layout->addWidget(progressChart);
 
     connectToDatabase();
     loadAttendanceForm();
@@ -136,7 +143,7 @@ void MainWindow::students_context_menu() {
 }
 
 void MainWindow::teachers_context_menu() {
-    QStringList menuItems = {"Teacher Information", "Teacher Salaries", "Teacher Transactions"};
+    QStringList menuItems = {"Teacher Information", "Teacher Salaries", "Student Attendance"};
     show_custom_context_menu(ui->teacher2, menuItems);
 }
 
@@ -188,7 +195,7 @@ void MainWindow::handle_menu_item_click() {
     } else if (text == "Teacher Salaries") {
         switch_to_tsalaries_page();
     }
-    else if (text == "Teacher Transactions") {
+    else if (text == "Student Attendance") {
         switch_to_ttransaction_page();
     } else if (text == "Budgets") {
         switch_to_fbudget_page();
@@ -260,27 +267,77 @@ void MainWindow::loadSelectedStudent(QListWidgetItem *item)
     QString selectedName = item->text();
 
     QSqlQuery query;
-    query.prepare("SELECT name, phone, email, class, dob, image_path, attendance FROM students WHERE name = :name");
+    query.prepare("SELECT roll_no, name, phone, email, class, dob, image_path, attendance FROM students WHERE name = :name");
     query.bindValue(":name", selectedName);
 
     if (query.exec() && query.next()) {
-        ui->studentNameLabel->setText(query.value(0).toString());
-        ui->studentPhoneLabel->setText(query.value(1).toString());
-        ui->studentEmailLabel->setText(query.value(2).toString());
-        ui->studentClassLabel->setText(query.value(3).toString());
-        ui->studentDOBLabel->setText(query.value(4).toDate().toString("dd-MM-yyyy"));
-        int attendance = query.value(6).toInt();
-        attendanceChart->setPercentage(attendance);
+        int rollNo = query.value(0).toInt();
+        ui->studentNameLabel->setText(query.value(1).toString());
+        ui->studentPhoneLabel->setText(query.value(2).toString());
+        ui->studentEmailLabel->setText(query.value(3).toString());
+        ui->studentClassLabel->setText(query.value(4).toString());
+        ui->studentDOBLabel->setText(query.value(5).toDate().toString("dd-MM-yyyy"));
+        attendanceChart->setPercentage(query.value(7).toInt());
 
-        QString imagePath = query.value(5).toString();
+        QString imagePath = query.value(6).toString();
         QPixmap pix(imagePath);
         ui->studentPhotoLabel->setPixmap(pix.scaled(100, 100, Qt::KeepAspectRatio));
 
         ui->searchResultsList->hide();
+
+        // --- Monthly Attendance Stats ---
+        QDate currentDate = QDate::currentDate();
+        QString currentMonth = currentDate.toString("yyyy-MM");
+
+        QSqlQuery attendanceQuery;
+        attendanceQuery.prepare("SELECT status FROM attendance WHERE roll_no = :roll AND DATE_FORMAT(date, '%Y-%m') = :month");
+        attendanceQuery.bindValue(":roll", rollNo);
+        attendanceQuery.bindValue(":month", currentMonth);
+
+        int presentCount = 0;
+        int absentCount = 0;
+
+        if (attendanceQuery.exec()) {
+            while (attendanceQuery.next()) {
+                QString status = attendanceQuery.value(0).toString();
+                if (status == "Present") presentCount++;
+                else if (status == "Absent") absentCount++;
+            }
+
+            int total = presentCount + absentCount;
+            double percentage = total > 0 ? (presentCount * 100.0 / total) : 0;
+
+            QString statusLabel;
+            QString color;
+
+            if (percentage >= 90) {
+                statusLabel = "Excellent";
+                color = "green";
+            } else if (percentage >= 75) {
+                statusLabel = "Good";
+                color = "#4caf50";
+            } else if (percentage >= 60) {
+                statusLabel = "Fair";
+                color = "#ff9800";
+            } else {
+                statusLabel = "Poor";
+                color = "red";
+            }
+
+            // Update attendance stat labels
+            ui->label_presentCount->setText(QString::number(presentCount));
+            ui->label_absentCount->setText(QString::number(absentCount));
+            ui->label_attendanceStatus->setText(statusLabel);
+            ui->label_attendanceStatus->setStyleSheet("color: white; background-color: " + color + "; padding: 5px; border-radius: 5px;");
+        } else {
+            qDebug() << "Failed to fetch monthly attendance:" << attendanceQuery.lastError().text();
+        }
+
     } else {
         qDebug() << "Failed to load selected student info:" << query.lastError().text();
     }
 }
+
 
 void MainWindow::searchStudents(const QString &text)
 {
@@ -455,7 +512,7 @@ void MainWindow::loadAttendanceForm() {
 
     QSqlDatabase db = QSqlDatabase::database();
     if (!db.isOpen()) {
-        qDebug() << "❌ Database not open!";
+        qDebug() << "Database not open!";
         return;
     }
 
@@ -493,7 +550,7 @@ void MainWindow::submitAttendance() {
     QSqlDatabase db = QSqlDatabase::database();
 
     if (!db.isOpen()) {
-        qDebug() << "❌ Database not open!";
+        qDebug() << "Database not open!";
         return;
     }
 
@@ -516,7 +573,7 @@ void MainWindow::submitAttendance() {
         checkQuery.exec();
         checkQuery.next();
         if (checkQuery.value(0).toInt() > 0) {
-            qDebug() << "⚠️ Attendance already exists for roll no" << rollNo << "on" << currentDate;
+            qDebug() << "Attendance already exists for roll no" << rollNo << "on" << currentDate;
             continue;
         }
 
@@ -528,21 +585,20 @@ void MainWindow::submitAttendance() {
         query.bindValue(":status", status);
 
         if (!query.exec()) {
-            qDebug() << "❌ Failed to insert attendance:" << query.lastError().text();
+            qDebug() << "Failed to insert attendance:" << query.lastError().text();
         }
     }
 
-    // ✅ Call percentage update only after successful submission
     updateAttendancePercentages();
 
-    QMessageBox::information(this, "Success", "✅ Attendance submitted and percentages updated.");
+    QMessageBox::information(this, "Success", "Attendance submitted and percentages updated.");
 }
 
 
 void MainWindow::updateAttendancePercentages() {
     QSqlDatabase db = QSqlDatabase::database();
     if (!db.isOpen()) {
-        qDebug() << "❌ Database not open!";
+        qDebug() << "Database not open!";
         return;
     }
 
@@ -578,11 +634,9 @@ void MainWindow::updateAttendancePercentages() {
         updateQuery.bindValue(":roll_no", rollNo);
 
         if (!updateQuery.exec()) {
-            qDebug() << "❌ Failed to update percentage for roll no" << rollNo << ":" << updateQuery.lastError().text();
+            qDebug() << "Failed to update percentage for roll no" << rollNo << ":" << updateQuery.lastError().text();
         } else {
-            qDebug() << "✅ Updated attendance for roll no" << rollNo << "→" << percentage << "%";
+            qDebug() << "Updated attendance for roll no" << rollNo << "→" << percentage << "%";
         }
     }
-
-    QMessageBox::information(this, "Updated", "✅ Attendance percentages updated in student table.");
 }

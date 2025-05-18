@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,12 +12,14 @@ SOURCES += \
     AttendanceCircleWidget.cpp \
     dialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    studentprogresschart.cpp
 
 HEADERS += \
     AttendanceCircleWidget.h \
     dialog.h \
-    mainwindow.h
+    mainwindow.h \
+    studentprogresschart.h
     dialog.h
 
 FORMS += \

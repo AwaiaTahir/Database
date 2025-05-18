@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1532</width>
-    <height>796</height>
+    <width>1524</width>
+    <height>833</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>0</x>
       <y>-4</y>
       <width>1521</width>
-      <height>771</height>
+      <height>767</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -418,12 +418,25 @@ QPushButton:checked{
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">QLineEdit{
-	background-color:white;
-	padding-left:20px;
-	border:1px solid gray;
-	border-radius:10px;
-}</string>
+               <string notr="true">QLineEdit {
+    padding: 8px 12px;
+    border: 2px solid #444;
+    border-radius: 6px;
+    background-color: #2e2e2e;
+    color: white;
+    font-size: 14px;
+    selection-background-color: #0078d7;
+}
+
+QLineEdit:hover {
+    border-color: #666;
+}
+
+QLineEdit:focus {
+    border-color: #00aaff;
+    background-color: #1e1e1e;
+}
+</string>
               </property>
               <property name="placeholderText">
                <string>Search Students</string>
@@ -514,7 +527,7 @@ QPushButton:checked{
            </size>
           </property>
           <property name="currentIndex">
-           <number>7</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="page">
            <widget class="QLabel" name="label_11">
@@ -611,7 +624,7 @@ border-radius : 20px;</string>
              <property name="geometry">
               <rect>
                <x>328</x>
-               <y>46</y>
+               <y>54</y>
                <width>211</width>
                <height>113</height>
               </rect>
@@ -702,34 +715,86 @@ color : white;</string>
             <widget class="QWidget" name="layoutWidget">
              <property name="geometry">
               <rect>
-               <x>180</x>
-               <y>10</y>
-               <width>131</width>
-               <height>152</height>
+               <x>178</x>
+               <y>172</y>
+               <width>247</width>
+               <height>39</height>
               </rect>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_14">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
-               <widget class="QLabel" name="studentNameLabel">
-                <property name="font">
-                 <font>
-                  <family>Poppins</family>
-                  <pointsize>14</pointsize>
-                  <bold>true</bold>
-                 </font>
+               <widget class="QPushButton" name="editStudentButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>37</height>
+                 </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">border : none;
-color : white;</string>
+                 <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
                 </property>
                 <property name="text">
-                 <string>Name</string>
-                </property>
-                <property name="scaledContents">
-                 <bool>true</bool>
+                 <string>Update Student</string>
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="deleteStudentButton">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>37</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	background-color: rgb(202, 0, 0);
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+                </property>
+                <property name="text">
+                 <string>Delete Student</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="layoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>174</x>
+               <y>54</y>
+               <width>147</width>
+               <height>113</height>
+              </rect>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <property name="spacing">
+               <number>7</number>
+              </property>
               <item>
                <widget class="QLabel" name="studentDOBLabel_2">
                 <property name="font">
@@ -812,75 +877,32 @@ color : white;</string>
               </item>
              </layout>
             </widget>
-            <widget class="QWidget" name="layoutWidget">
+            <widget class="QLabel" name="studentNameLabel">
              <property name="geometry">
               <rect>
-               <x>178</x>
-               <y>172</y>
-               <width>247</width>
-               <height>39</height>
+               <x>176</x>
+               <y>18</y>
+               <width>357</width>
+               <height>32</height>
               </rect>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QPushButton" name="editStudentButton">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-	background-color : #34D481;
-	color : white;
-	border : none;
-	border-radius : 8px;
-	font-weight : bold;
-	font-size : 15px;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Update Student</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="deleteStudentButton">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>37</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QPushButton{
-	background-color: rgb(202, 0, 0);
-	color : white;
-	border : none;
-	border-radius : 8px;
-	font-weight : bold;
-	font-size : 15px;
-}</string>
-                </property>
-                <property name="text">
-                 <string>Delete Student</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Name</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
             </widget>
            </widget>
            <widget class="QPushButton" name="Add_Student">
@@ -949,6 +971,322 @@ border-radius : 18px;</string>
               <enum>QFrame::Shadow::Raised</enum>
              </property>
             </widget>
+            <widget class="QLabel" name="studentNameLabel_2">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>16</y>
+               <width>289</width>
+               <height>32</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Attendance Percentage</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="studentDOBLabel_6">
+             <property name="geometry">
+              <rect>
+               <x>58</x>
+               <y>190</y>
+               <width>77</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Presents</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_4">
+             <property name="geometry">
+              <rect>
+               <x>32</x>
+               <y>192</y>
+               <width>21</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>21</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>21</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:  #34D481;
+border-radius : 2px;
+border : none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_6">
+             <property name="geometry">
+              <rect>
+               <x>136</x>
+               <y>192</y>
+               <width>21</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>21</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>21</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:  lightgray;
+border-radius : 2px;
+border : none;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+            <widget class="QLabel" name="studentDOBLabel_7">
+             <property name="geometry">
+              <rect>
+               <x>162</x>
+               <y>190</y>
+               <width>75</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Absents</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_present">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>62</y>
+               <width>181</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Presents this month</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>90</y>
+               <width>173</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Absents this month</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_presentCount">
+             <property name="geometry">
+              <rect>
+               <x>210</x>
+               <y>62</y>
+               <width>29</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>28</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_absentCount">
+             <property name="geometry">
+              <rect>
+               <x>211</x>
+               <y>90</y>
+               <width>27</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>02</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_status">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>138</y>
+               <width>173</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Attendance status</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_attendanceStatus">
+             <property name="geometry">
+              <rect>
+               <x>212</x>
+               <y>138</y>
+               <width>75</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : rgb(202, 0, 0);</string>
+             </property>
+             <property name="text">
+              <string>Low</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="chartContainer" native="true">
+            <property name="geometry">
+             <rect>
+              <x>25</x>
+              <y>248</y>
+              <width>581</width>
+              <height>250</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
            </widget>
           </widget>
           <widget class="QWidget" name="page_4">
@@ -1055,10 +1393,10 @@ background-color:none;</string>
            <widget class="QTableWidget" name="attendanceTable">
             <property name="geometry">
              <rect>
-              <x>46</x>
-              <y>14</y>
-              <width>1115</width>
-              <height>581</height>
+              <x>18</x>
+              <y>8</y>
+              <width>1145</width>
+              <height>599</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -1116,7 +1454,7 @@ QTableWidget QCheckBox {
             <property name="geometry">
              <rect>
               <x>1048</x>
-              <y>610</y>
+              <y>616</y>
               <width>113</width>
               <height>41</height>
              </rect>
@@ -1350,6 +1688,9 @@ QPushButton:checked{
             <property name="checkable">
              <bool>true</bool>
             </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -1379,6 +1720,9 @@ QPushButton:checked{
              </size>
             </property>
             <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
              <bool>true</bool>
             </property>
            </widget>
@@ -1604,7 +1948,7 @@ QPushButton:hover{
 }</string>
                   </property>
                   <property name="text">
-                   <string>Teacher Transactions</string>
+                   <string>Student Attendance</string>
                   </property>
                   <property name="checkable">
                    <bool>true</bool>
