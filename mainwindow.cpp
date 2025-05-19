@@ -74,17 +74,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->editStudentButton, &QPushButton::clicked, this, &MainWindow::editCurrentStudent);
     connect(ui->submitAttendanceButton, &QPushButton::clicked, this, &MainWindow::submitAttendance);
 
-    ui->attendanceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-    QList<int> data = {30, 55, 60, 40, 25, 50, 20, 35, 40};
-    auto *progressChart = new StudentProgressChart(data);
-
-    auto *layout = new QVBoxLayout(ui->chartContainer);
-    layout->addWidget(progressChart);
+    connect(ui->searchResultsList, &QListWidget::currentItemChanged, this, &MainWindow::onStudentSelectedFromSearch);
 
     connectToDatabase();
     loadAttendanceForm();
     loadStudentData();
+    loadStudentProgressChart();
 }
 
 MainWindow::~MainWindow()
@@ -285,7 +280,7 @@ void MainWindow::loadSelectedStudent(QListWidgetItem *item)
 
         ui->searchResultsList->hide();
 
-        // --- Monthly Attendance Stats ---
+
         QDate currentDate = QDate::currentDate();
         QString currentMonth = currentDate.toString("yyyy-MM");
 
@@ -324,7 +319,6 @@ void MainWindow::loadSelectedStudent(QListWidgetItem *item)
                 color = "red";
             }
 
-            // Update attendance stat labels
             ui->label_presentCount->setText(QString::number(presentCount));
             ui->label_absentCount->setText(QString::number(absentCount));
             ui->label_attendanceStatus->setText(statusLabel);
@@ -408,7 +402,6 @@ void MainWindow::deleteCurrentStudent() {
         return;
     }
 
-    // Confirmation prompt
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this,
                                   "Confirm Deletion",
@@ -429,7 +422,7 @@ void MainWindow::deleteCurrentStudent() {
             ui->studentDOBLabel->clear();
             ui->studentPhotoLabel->clear();
             attendanceChart->setPercentage(0);
-            loadStudentData(); // Refresh list if applicable
+            loadStudentData();
         } else {
             qDebug() << "Failed to delete student:" << query.lastError().text();
         }
@@ -464,7 +457,6 @@ void MainWindow::editCurrentStudent() {
     currentInfo.address = "";  // Add if shown in UI
     currentInfo.gender = "";   // Add if shown in UI
 
-    // Open edit dialog
     Dialog dialog(this);
     dialog.setWindowTitle("Edit Student Info");
     dialog.setStudentInfo(currentInfo);
@@ -565,7 +557,6 @@ void MainWindow::submitAttendance() {
 
         QString status = (checkBox && checkBox->isChecked()) ? "Present" : "Absent";
 
-        // Prevent duplicate entry for same date and student
         QSqlQuery checkQuery;
         checkQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no AND date = :date");
         checkQuery.bindValue(":roll_no", rollNo);
@@ -607,7 +598,7 @@ void MainWindow::updateAttendancePercentages() {
     while (getStudents.next()) {
         int rollNo = getStudents.value(0).toInt();
 
-        // Get total days this student has attendance records
+
         QSqlQuery totalDaysQuery;
         totalDaysQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no");
         totalDaysQuery.bindValue(":roll_no", rollNo);
@@ -615,7 +606,6 @@ void MainWindow::updateAttendancePercentages() {
         totalDaysQuery.next();
         int totalDays = totalDaysQuery.value(0).toInt();
 
-        // Get present count
         QSqlQuery presentDaysQuery;
         presentDaysQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no AND status = 'Present'");
         presentDaysQuery.bindValue(":roll_no", rollNo);
@@ -627,7 +617,6 @@ void MainWindow::updateAttendancePercentages() {
         if (totalDays > 0)
             percentage = (presentDays * 100) / totalDays;
 
-        // Update student table
         QSqlQuery updateQuery;
         updateQuery.prepare("UPDATE students SET attendance = :percentage WHERE roll_no = :roll_no");
         updateQuery.bindValue(":percentage", percentage);
@@ -639,4 +628,77 @@ void MainWindow::updateAttendancePercentages() {
             qDebug() << "Updated attendance for roll no" << rollNo << "→" << percentage << "%";
         }
     }
+}
+
+void MainWindow::loadStudentProgressChart() {
+    QString studentName = ui->studentNameLabel->text().trimmed();
+    if (studentName.isEmpty()) {
+        qDebug() << "Student name label is empty.";
+        return;
+    }
+
+
+    QSqlQuery idQuery;
+    idQuery.prepare("SELECT id FROM students WHERE name = :name");
+    idQuery.bindValue(":name", studentName);
+
+    if (!idQuery.exec() || !idQuery.next()) {
+        qDebug() << "Failed to find student ID for name:" << studentName;
+        return;
+    }
+
+    int studentId = idQuery.value(0).toInt();
+
+    QList<int> progressData;
+    QStringList months = {"Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"};
+
+    QSqlQuery marksQuery;
+    marksQuery.prepare("SELECT month, marks FROM marks WHERE student_id = :id");
+    marksQuery.bindValue(":id", studentId);
+
+    if (!marksQuery.exec()) {
+        qDebug() << "Failed to fetch marks:" << marksQuery.lastError().text();
+        return;
+    }
+
+    QMap<QString, int> marksMap;
+    while (marksQuery.next()) {
+        QString month = marksQuery.value(0).toString();
+        int mark = marksQuery.value(1).toInt();
+        marksMap[month] = mark;
+    }
+
+    for (const QString &month : months) {
+        progressData.append(marksMap.value(month, 0));
+    }
+
+    auto *progressChart = new StudentProgressChart(progressData);
+
+    QLayout *oldLayout = ui->chartContainer->layout();
+    if (oldLayout) {
+        QLayoutItem *item;
+        while ((item = oldLayout->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        delete oldLayout;
+    }
+
+    auto *layout = new QVBoxLayout(ui->chartContainer);
+    layout->addWidget(progressChart);
+}
+
+void MainWindow::onStudentSelectedFromSearch(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    Q_UNUSED(previous);
+
+    if (!current) return;
+
+    QString selectedStudent = current->text();
+
+    ui->studentNameLabel->setText(selectedStudent);
+
+    loadStudentProgressChart();
+
+    ui->searchResultsList->hide();
 }

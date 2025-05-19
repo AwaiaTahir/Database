@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1524</width>
+    <width>1557</width>
     <height>833</height>
    </rect>
   </property>
@@ -510,7 +510,7 @@ QLineEdit:focus {
            <rect>
             <x>-4</x>
             <y>0</y>
-            <width>1177</width>
+            <width>1229</width>
             <height>661</height>
            </rect>
           </property>
@@ -584,7 +584,7 @@ background-color:none;</string>
             <property name="geometry">
              <rect>
               <x>32</x>
-              <y>8</y>
+              <y>28</y>
               <width>551</width>
               <height>231</height>
              </rect>
@@ -908,20 +908,28 @@ color : white;</string>
            <widget class="QPushButton" name="Add_Student">
             <property name="geometry">
              <rect>
-              <x>854</x>
-              <y>600</y>
-              <width>109</width>
-              <height>37</height>
+              <x>32</x>
+              <y>580</y>
+              <width>1141</width>
+              <height>57</height>
              </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Poppins</family>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
+             </font>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
 	background-color : #34D481;
 	color : white;
 	border : none;
-	border-radius : 8px;
+	border-radius : 16px;
 	font-weight : bold;
-	font-size : 15px;
+	font-family : &quot;Poppins&quot;;
+	font-size : 22px;
 }</string>
             </property>
             <property name="text">
@@ -931,8 +939,8 @@ color : white;</string>
            <widget class="QFrame" name="frame_2">
             <property name="geometry">
              <rect>
-              <x>604</x>
-              <y>8</y>
+              <x>620</x>
+              <y>28</y>
               <width>551</width>
               <height>231</height>
              </rect>
@@ -1279,7 +1287,7 @@ color : rgb(202, 0, 0);</string>
             <property name="geometry">
              <rect>
               <x>25</x>
-              <y>248</y>
+              <y>290</y>
               <width>581</width>
               <height>250</height>
              </rect>
@@ -1287,6 +1295,372 @@ color : rgb(202, 0, 0);</string>
             <property name="styleSheet">
              <string notr="true"/>
             </property>
+           </widget>
+           <widget class="QFrame" name="frame_3">
+            <property name="geometry">
+             <rect>
+              <x>620</x>
+              <y>300</y>
+              <width>260</width>
+              <height>231</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(39, 39, 39);
+border : 1px solid black;
+border-radius : 18px;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <widget class="QLabel" name="studentNameLabel_3">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>12</y>
+               <width>79</width>
+               <height>32</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Tasks</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_present_2">
+             <property name="geometry">
+              <rect>
+               <x>38</x>
+               <y>56</y>
+               <width>51</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Tests</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_present_3">
+             <property name="geometry">
+              <rect>
+               <x>42</x>
+               <y>126</y>
+               <width>121</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>10</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Assignments</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QFrame" name="frame_4">
+            <property name="geometry">
+             <rect>
+              <x>912</x>
+              <y>300</y>
+              <width>260</width>
+              <height>231</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(39, 39, 39);
+border : 1px solid black;
+border-radius : 18px;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Shadow::Raised</enum>
+            </property>
+            <widget class="QLabel" name="studentNameLabel_4">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>12</y>
+               <width>119</width>
+               <height>32</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>14</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Schedule</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_2">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>52</y>
+               <width>137</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>8:00 Am to 9:00 Am</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_3">
+             <property name="geometry">
+              <rect>
+               <x>34</x>
+               <y>92</y>
+               <width>137</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>8:00 Am to 9:00 Am</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_4">
+             <property name="geometry">
+              <rect>
+               <x>36</x>
+               <y>134</y>
+               <width>137</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>8:00 Am to 9:00 Am</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_5">
+             <property name="geometry">
+              <rect>
+               <x>36</x>
+               <y>178</y>
+               <width>137</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>8:00 Am to 9:00 Am</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_6">
+             <property name="geometry">
+              <rect>
+               <x>178</x>
+               <y>54</y>
+               <width>59</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Physics</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_7">
+             <property name="geometry">
+              <rect>
+               <x>178</x>
+               <y>92</y>
+               <width>43</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Math</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_8">
+             <property name="geometry">
+              <rect>
+               <x>178</x>
+               <y>136</y>
+               <width>73</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>Chemistry</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="month_absent_9">
+             <property name="geometry">
+              <rect>
+               <x>178</x>
+               <y>178</y>
+               <width>53</width>
+               <height>24</height>
+              </rect>
+             </property>
+             <property name="font">
+              <font>
+               <family>Poppins</family>
+               <pointsize>8</pointsize>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border : none;
+color : white;</string>
+             </property>
+             <property name="text">
+              <string>English</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
            </widget>
           </widget>
           <widget class="QWidget" name="page_4">
@@ -2128,6 +2502,9 @@ QPushButton:checked{
              </size>
             </property>
             <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
              <bool>true</bool>
             </property>
            </widget>

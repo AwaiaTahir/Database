@@ -48,6 +48,8 @@ private:
     void loadAttendanceForm();
     void submitAttendance();
     void updateAttendancePercentages();
+    void loadStudentProgressChart();
+    void onStudentSelectedFromSearch(QListWidgetItem *current, QListWidgetItem *previous);
     void updateMonthlyAttendanceStats(QListWidgetItem *item);
     AttendanceCircleWidget *attendanceChart;
 
