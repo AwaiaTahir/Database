@@ -74,6 +74,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->editStudentButton, &QPushButton::clicked, this, &MainWindow::editCurrentStudent);
     connect(ui->submitAttendanceButton, &QPushButton::clicked, this, &MainWindow::submitAttendance);
 
+    ui->attendanceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+
     connect(ui->searchResultsList, &QListWidget::currentItemChanged, this, &MainWindow::onStudentSelectedFromSearch);
 
     connectToDatabase();
