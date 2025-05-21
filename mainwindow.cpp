@@ -14,6 +14,7 @@
 #include <QCheckBox>
 #include "studentprogresschart.h"
 #include <QVBoxLayout>
+#include "marks_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -59,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->finance2, &QPushButton::clicked, this, &MainWindow::finance_context_menu);
 
     connect(ui->Add_Student, &QPushButton::clicked, this, &MainWindow::Open_Add_Student_Dialog);
+
+    connect(ui->assign_marks, &QPushButton::clicked, this, &MainWindow::Open_marks_dialog);
 
     connect(ui->searchBar, &QLineEdit::textChanged, this, &MainWindow::searchStudents);
     connect(ui->searchResultsList, &QListWidget::itemClicked, this, &MainWindow::loadSelectedStudent);
@@ -221,6 +224,11 @@ void MainWindow::connectToDatabase() {
     } else {
         qDebug() << "Connected to database successfully.";
     }
+}
+
+void MainWindow::Open_marks_dialog(){
+    Marks_Dialog marks_dialog(this);
+    marks_dialog.exec();
 }
 
 void MainWindow::Open_Add_Student_Dialog() {

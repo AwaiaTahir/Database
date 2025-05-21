@@ -526,8 +526,39 @@ QLineEdit:focus {
             <height>100000</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QDialog{
+	background-color : white;
+}
+
+QLineEdit{
+	border : 1px solid gray;
+	border-radius : 6px;
+	padding-left : 15px;
+	height : 35px;
+}
+
+QDateEdit{
+	border : 1px solid gray;
+	border-radius : 6px;
+	padding-left : 15px;
+	height : 31px;
+}
+
+QComboBox{
+	border : 2px solid white;
+	border-radius : 8px;
+	padding : 1px 18px 1px 3px;
+	background-color : black;
+	color : white;
+	height : 35px;
+	padding-left : 15px;
+	font-weight : bold;
+	selection-background-color : #2980B9;
+}</string>
+          </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>7</number>
           </property>
           <widget class="QWidget" name="page">
            <widget class="QLabel" name="label_11">
@@ -1717,50 +1748,689 @@ background-color:none;</string>
            <widget class="QLabel" name="label_16">
             <property name="geometry">
              <rect>
-              <x>226</x>
-              <y>264</y>
-              <width>315</width>
-              <height>143</height>
+              <x>432</x>
+              <y>20</y>
+              <width>177</width>
+              <height>37</height>
              </rect>
             </property>
             <property name="font">
              <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
+              <family>Poppins</family>
+              <pointsize>14</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Upload Marks</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="assign_marks">
+            <property name="geometry">
+             <rect>
+              <x>205</x>
+              <y>592</y>
+              <width>613</width>
+              <height>41</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>41</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>-1</pointsize>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
+             <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : semi-bold;
+	font-size : 24px;
+}</string>
             </property>
             <property name="text">
-             <string>Teacher Information</string>
+             <string>Assign Marks</string>
             </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>202</x>
+              <y>68</y>
+              <width>617</width>
+              <height>493</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_31">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_21">
+               <item>
+                <widget class="QLabel" name="label_17">
+                 <property name="font">
+                  <font>
+                   <family>Poppins</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Details</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="nameLineEdit">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Topic name or number...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_8">
+               <property name="spacing">
+                <number>7</number>
+               </property>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_26">
+                 <item>
+                  <widget class="QLabel" name="label_25">
+                   <property name="font">
+                    <font>
+                     <family>Poppins</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Select Subject</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="genderComboBox_3">
+                   <item>
+                    <property name="text">
+                     <string>Physics</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Chemistry</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Math</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>English</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Urdu</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Biology</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Computer</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_28">
+                 <item>
+                  <widget class="QLabel" name="label_27">
+                   <property name="font">
+                    <font>
+                     <family>Poppins</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Select Type</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="genderComboBox_4">
+                   <item>
+                    <property name="text">
+                     <string>Test</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Assignment</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_27">
+                 <item>
+                  <widget class="QLabel" name="label_26">
+                   <property name="font">
+                    <font>
+                     <family>Poppins</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Select Class</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="classComboBox_2">
+                   <item>
+                    <property name="text">
+                     <string>9th</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>10th</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>1st Year</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>2nd Year</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_29">
+               <item>
+                <widget class="QLabel" name="label_28">
+                 <property name="font">
+                  <font>
+                   <family>Poppins</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Total Marks</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="nameLineEdit_3">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_30">
+               <item>
+                <widget class="QLabel" name="label_29">
+                 <property name="font">
+                  <font>
+                   <family>Poppins</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Test Date</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="dobDateEdit_2"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </widget>
           </widget>
           <widget class="QWidget" name="page_7">
-           <widget class="QLabel" name="label_17">
+           <widget class="QLabel" name="label_5">
             <property name="geometry">
              <rect>
-              <x>256</x>
-              <y>216</y>
-              <width>251</width>
-              <height>143</height>
+              <x>546</x>
+              <y>36</y>
+              <width>189</width>
+              <height>39</height>
              </rect>
             </property>
             <property name="font">
              <font>
-              <family>Berlin Sans FB</family>
-              <pointsize>20</pointsize>
+              <family>Poppins</family>
+              <pointsize>16</pointsize>
+              <bold>true</bold>
              </font>
             </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(0, 0, 0);
-background-color:none;</string>
-            </property>
             <property name="text">
-             <string>Teacher Salaries</string>
+             <string>ASSIGN TASK</string>
             </property>
+           </widget>
+           <widget class="Line" name="line">
+            <property name="geometry">
+             <rect>
+              <x>187</x>
+              <y>13</y>
+              <width>1</width>
+              <height>630</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 0, 0);</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
+           <widget class="Line" name="line_2">
+            <property name="geometry">
+             <rect>
+              <x>1060</x>
+              <y>13</y>
+              <width>1</width>
+              <height>630</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 0, 0);</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+           </widget>
+           <widget class="Line" name="line_3">
+            <property name="geometry">
+             <rect>
+              <x>187</x>
+              <y>14</y>
+              <width>873</width>
+              <height>1</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 0, 0);</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="Line" name="line_4">
+            <property name="geometry">
+             <rect>
+              <x>187</x>
+              <y>642</y>
+              <width>873</width>
+              <height>1</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 0, 0);</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QWidget" name="layoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>694</x>
+              <y>566</y>
+              <width>243</width>
+              <height>43</height>
+             </rect>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QPushButton" name="saveButton_2">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>41</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	background-color: rgb(202, 0, 0);
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+               </property>
+               <property name="text">
+                <string>Remove</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="saveButton">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>41</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+               </property>
+               <property name="text">
+                <string>Upload</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="layoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>318</x>
+              <y>88</y>
+              <width>621</width>
+              <height>443</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_25">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_22">
+               <item>
+                <widget class="QLabel" name="label_18">
+                 <property name="font">
+                  <font>
+                   <family>Poppins</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Topic</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="nameLineEdit_2">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_23">
+               <item>
+                <widget class="QLabel" name="label_23">
+                 <property name="font">
+                  <font>
+                   <family>Poppins</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Select Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="genderComboBox_2">
+                 <item>
+                  <property name="text">
+                   <string>Test</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Assignment</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <item>
+                  <widget class="QLabel" name="label_7">
+                   <property name="font">
+                    <font>
+                     <family>Poppins</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Select Subject</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="genderComboBox">
+                   <item>
+                    <property name="text">
+                     <string>Physics</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Chemistry</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Math</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>English</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Urdu</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Biology</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Computer</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_19">
+                 <item>
+                  <widget class="QLabel" name="label_10">
+                   <property name="font">
+                    <font>
+                     <family>Poppins</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Select Class</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="classComboBox">
+                   <item>
+                    <property name="text">
+                     <string>9th</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>10th</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>1st Year</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>2nd Year</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_20">
+                 <item>
+                  <widget class="QLabel" name="label_15">
+                   <property name="font">
+                    <font>
+                     <family>Poppins</family>
+                     <pointsize>12</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Due Date</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDateEdit" name="dobDateEdit"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_24">
+               <item>
+                <widget class="QLabel" name="label_24">
+                 <property name="font">
+                  <font>
+                   <family>Poppins</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Add PDF</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="selectPhotoButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton{
+	background-color: rgb(39, 39, 39);
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Add PDF</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </widget>
           </widget>
           <widget class="QWidget" name="page_8">

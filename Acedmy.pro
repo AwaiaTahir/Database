@@ -13,18 +13,21 @@ SOURCES += \
     dialog.cpp \
     main.cpp \
     mainwindow.cpp \
+    marks_dialog.cpp \
     studentprogresschart.cpp
 
 HEADERS += \
     AttendanceCircleWidget.h \
     dialog.h \
     mainwindow.h \
+    marks_dialog.h \
     studentprogresschart.h
     dialog.h
 
 FORMS += \
     dialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    marks_dialog.ui
     dialog.ui
 
 # Default rules for deployment.

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Marks_Dialog</class>
+ <widget class="QDialog" name="Marks_Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>825</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QTableWidget" name="marksTable">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>30</y>
+     <width>761</width>
+     <height>581</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableWidget {
+    background-color: #000000;
+    gridline-color: #34D481;
+    font-size: 14px;
+    font-family: &quot;Poppins&quot;;
+    color: white;
+}
+
+QHeaderView::section {
+    background-color: #34D481;
+    color: #000000;
+    padding: 4px;
+    border: 1px solid #34D481;
+    font-family: &quot;Poppins&quot;;
+    font-size: 14px;
+}
+
+QTableWidget::item:selected {
+    background-color:#1e1e1e;
+    color: white;
+    font-family: &quot;Poppins&quot;;
+}
+
+QLineEdit{
+	background-color: #000000;
+	color : white;
+	font-family : &quot;Poppins&quot;;
+	font-size : 14px;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>630</y>
+     <width>241</width>
+     <height>43</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QPushButton" name="saveButton">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color : #34D481;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+      </property>
+      <property name="text">
+       <string>Upload</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color : #585858;
+	color : white;
+	border : none;
+	border-radius : 8px;
+	font-weight : bold;
+	font-size : 15px;
+}</string>
+      </property>
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Marks_Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>732</x>
+     <y>651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>745</x>
+     <y>763</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

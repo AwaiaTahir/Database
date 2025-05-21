@@ -51,6 +51,7 @@ private:
     void loadStudentProgressChart();
     void onStudentSelectedFromSearch(QListWidgetItem *current, QListWidgetItem *previous);
     void updateMonthlyAttendanceStats(QListWidgetItem *item);
+    void Open_marks_dialog();
     AttendanceCircleWidget *attendanceChart;
 
 };
