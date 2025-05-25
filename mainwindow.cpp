@@ -14,6 +14,7 @@
 #include <QCheckBox>
 #include "studentprogresschart.h"
 #include <QVBoxLayout>
+#include <QFileDialog>
 #include "marks_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -51,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->f_overview, &QPushButton::clicked, this, &MainWindow::switch_to_foverview_page);
 
+
     ui->pushButton_4->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->teacher2->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->finance2->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -60,8 +62,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->finance2, &QPushButton::clicked, this, &MainWindow::finance_context_menu);
 
     connect(ui->Add_Student, &QPushButton::clicked, this, &MainWindow::Open_Add_Student_Dialog);
-
-    connect(ui->assign_marks, &QPushButton::clicked, this, &MainWindow::Open_marks_dialog);
 
     connect(ui->searchBar, &QLineEdit::textChanged, this, &MainWindow::searchStudents);
     connect(ui->searchResultsList, &QListWidget::itemClicked, this, &MainWindow::loadSelectedStudent);
@@ -78,6 +78,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->submitAttendanceButton, &QPushButton::clicked, this, &MainWindow::submitAttendance);
 
     ui->attendanceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    connect(ui->uploadButton, &QPushButton::clicked, this, &MainWindow::on_uploadButton_clicked);
+    connect(ui->Add_PDF, &QPushButton::clicked, this, &MainWindow::on_addPdfButton_clicked);
+    connect(ui->assignMarksButton, &QPushButton::clicked, this, &MainWindow::on_assignMarksButton_clicked);
+
+
 
 
     connect(ui->searchResultsList, &QListWidget::currentItemChanged, this, &MainWindow::onStudentSelectedFromSearch);
@@ -224,11 +230,6 @@ void MainWindow::connectToDatabase() {
     } else {
         qDebug() << "Connected to database successfully.";
     }
-}
-
-void MainWindow::Open_marks_dialog(){
-    Marks_Dialog marks_dialog(this);
-    marks_dialog.exec();
 }
 
 void MainWindow::Open_Add_Student_Dialog() {
@@ -648,7 +649,6 @@ void MainWindow::loadStudentProgressChart() {
         return;
     }
 
-
     QSqlQuery idQuery;
     idQuery.prepare("SELECT id FROM students WHERE name = :name");
     idQuery.bindValue(":name", studentName);
@@ -664,7 +664,7 @@ void MainWindow::loadStudentProgressChart() {
     QStringList months = {"Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"};
 
     QSqlQuery marksQuery;
-    marksQuery.prepare("SELECT month, marks FROM marks WHERE student_id = :id");
+    marksQuery.prepare("SELECT test_date, marks_obtained, total_marks FROM marks WHERE student_id = :id");
     marksQuery.bindValue(":id", studentId);
 
     if (!marksQuery.exec()) {
@@ -672,15 +672,26 @@ void MainWindow::loadStudentProgressChart() {
         return;
     }
 
-    QMap<QString, int> marksMap;
+    QMap<QString, double> totalPercentageMap;
+    QMap<QString, int> countMap;
+
     while (marksQuery.next()) {
-        QString month = marksQuery.value(0).toString();
-        int mark = marksQuery.value(1).toInt();
-        marksMap[month] = mark;
+        QDate date = marksQuery.value("test_date").toDate();
+        QString month = date.toString("MMM");
+        int obtained = marksQuery.value("marks_obtained").toInt();
+        int total = marksQuery.value("total_marks").toInt();
+
+        if (total > 0) {
+            double percentage = (double)obtained / total * 100.0;
+            totalPercentageMap[month] += percentage;
+            countMap[month]++;
+        }
     }
 
     for (const QString &month : months) {
-        progressData.append(marksMap.value(month, 0));
+        int count = countMap.value(month, 0);
+        double avg = count > 0 ? totalPercentageMap.value(month) / count : 0;
+        progressData.append(static_cast<int>(avg));
     }
 
     auto *progressChart = new StudentProgressChart(progressData);
@@ -699,6 +710,9 @@ void MainWindow::loadStudentProgressChart() {
     layout->addWidget(progressChart);
 }
 
+
+
+
 void MainWindow::onStudentSelectedFromSearch(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous);
@@ -713,3 +727,57 @@ void MainWindow::onStudentSelectedFromSearch(QListWidgetItem *current, QListWidg
 
     ui->searchResultsList->hide();
 }
+
+void MainWindow::on_addPdfButton_clicked() {
+    QString filePath = QFileDialog::getOpenFileName(this, "Select PDF File", "", "PDF Files (*.pdf)");
+    if (!filePath.isEmpty()) {
+        selectedPdfPath = filePath;
+        QMessageBox::information(this, "PDF Selected", "Selected PDF:\n" + filePath);
+    } else {
+        selectedPdfPath = "";
+    }
+}
+
+
+void MainWindow::on_uploadButton_clicked() {
+    QString topic = ui->topicLineEdit->text();
+    QString taskType = ui->typeComboBox->currentText();
+    QString subject = ui->subjectComboBox->currentText();
+    QString className = ui->classComboBox->currentText();
+    QDate dueDate = ui->dueDateEdit->date();
+
+    if (selectedPdfPath.isEmpty()) {
+        QMessageBox::warning(this, "Missing File", "Please add a PDF file before uploading.");
+        return;
+    }
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO tasks (topic, task_type, subject, class, due_date, pdf_path) "
+                  "VALUES (?, ?, ?, ?, ?, ?)");
+    query.addBindValue(topic);
+    query.addBindValue(taskType);
+    query.addBindValue(subject);
+    query.addBindValue(className);
+    query.addBindValue(dueDate);
+    query.addBindValue(selectedPdfPath);
+
+    if (query.exec()) {
+        QMessageBox::information(this, "Success", "Task uploaded successfully.");
+    } else {
+        QMessageBox::critical(this, "Error", "Failed to upload task:\n" + query.lastError().text());
+    }
+}
+
+void MainWindow::on_assignMarksButton_clicked()
+{
+    QString subject = ui->SubQBox->currentText();
+    QString type = ui->TypeQBox->currentText();
+    QString className = ui->ClassQBox->currentText();
+    QString details = ui->detailsLineEdit->text();
+    QDate testDate = ui->testDateEdit->date();
+    int totalMarks = ui->totalMarksLineEdit->text().toInt();
+
+    Marks_Dialog *dialog = new Marks_Dialog(subject, type, className, details, testDate, totalMarks, this);
+    dialog->exec();
+}
+

@@ -558,7 +558,7 @@ QComboBox{
 }</string>
           </property>
           <property name="currentIndex">
-           <number>7</number>
+           <number>5</number>
           </property>
           <widget class="QWidget" name="page">
            <widget class="QLabel" name="label_11">
@@ -1765,7 +1765,7 @@ background-color:none;</string>
              <string>Upload Marks</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="assign_marks">
+           <widget class="QPushButton" name="assignMarksButton">
             <property name="geometry">
              <rect>
               <x>205</x>
@@ -1829,7 +1829,7 @@ background-color:none;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="nameLineEdit">
+                <widget class="QLineEdit" name="detailsLineEdit">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -1870,7 +1870,7 @@ background-color:none;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="genderComboBox_3">
+                  <widget class="QComboBox" name="SubQBox">
                    <item>
                     <property name="text">
                      <string>Physics</string>
@@ -1926,7 +1926,7 @@ background-color:none;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="genderComboBox_4">
+                  <widget class="QComboBox" name="TypeQBox">
                    <item>
                     <property name="text">
                      <string>Test</string>
@@ -1957,7 +1957,7 @@ background-color:none;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="classComboBox_2">
+                  <widget class="QComboBox" name="ClassQBox">
                    <item>
                     <property name="text">
                      <string>9th</string>
@@ -2000,7 +2000,7 @@ background-color:none;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="nameLineEdit_3">
+                <widget class="QLineEdit" name="totalMarksLineEdit">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -2033,7 +2033,7 @@ background-color:none;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QDateEdit" name="dobDateEdit_2"/>
+                <widget class="QDateEdit" name="testDateEdit"/>
                </item>
               </layout>
              </item>
@@ -2159,7 +2159,7 @@ background-color:none;</string>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="saveButton">
+              <widget class="QPushButton" name="uploadButton">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -2212,7 +2212,7 @@ background-color:none;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="nameLineEdit_2">
+                <widget class="QLineEdit" name="topicLineEdit">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -2248,7 +2248,7 @@ background-color:none;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="genderComboBox_2">
+                <widget class="QComboBox" name="typeComboBox">
                  <item>
                   <property name="text">
                    <string>Test</string>
@@ -2281,7 +2281,7 @@ background-color:none;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="genderComboBox">
+                  <widget class="QComboBox" name="subjectComboBox">
                    <item>
                     <property name="text">
                      <string>Physics</string>
@@ -2378,7 +2378,7 @@ background-color:none;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDateEdit" name="dobDateEdit"/>
+                  <widget class="QDateEdit" name="dueDateEdit"/>
                  </item>
                 </layout>
                </item>
@@ -2400,7 +2400,7 @@ background-color:none;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="selectPhotoButton">
+                <widget class="QPushButton" name="Add_PDF">
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
@@ -3359,12 +3359,12 @@ QPushButton:checked{
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>161</x>
-     <y>703</y>
+     <x>276</x>
+     <y>702</y>
     </hint>
     <hint type="destinationlabel">
      <x>83</x>
-     <y>704</y>
+     <y>703</y>
     </hint>
    </hints>
   </connection>

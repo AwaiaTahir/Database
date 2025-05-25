@@ -52,7 +52,11 @@ private:
     void onStudentSelectedFromSearch(QListWidgetItem *current, QListWidgetItem *previous);
     void updateMonthlyAttendanceStats(QListWidgetItem *item);
     void Open_marks_dialog();
+    void on_uploadButton_clicked();
+    void on_addPdfButton_clicked();
+    void on_assignMarksButton_clicked();
     AttendanceCircleWidget *attendanceChart;
+    QString selectedPdfPath;
 
 };
 #endif // MAINWINDOW_H
