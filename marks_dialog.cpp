@@ -98,7 +98,12 @@ void Marks_Dialog::on_saveButton_clicked() {
                                      .arg(roll_no).arg(m_totalMarks));
             return;
         }
-
+        if (obtainedMarks < 0 || m_totalMarks < 0){
+            QMessageBox::warning(this, "Validation Error",
+                                 QString("Marks cannot be negative!")
+                                     .arg(roll_no).arg(m_totalMarks));
+            return;
+        }
         QSqlQuery idQuery;
         idQuery.prepare("SELECT id FROM students WHERE roll_no = :roll");
         idQuery.bindValue(":roll", roll_no);

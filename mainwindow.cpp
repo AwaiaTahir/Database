@@ -15,6 +15,8 @@
 #include "studentprogresschart.h"
 #include <QVBoxLayout>
 #include <QFileDialog>
+#include <QDesktopServices>
+#include <QButtonGroup>
 #include "marks_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -24,9 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->searchResultsList->hide();
     ui->icon_text_widget->setHidden(true);
-    ui->students_dropdown->setHidden(true);
     ui->teachers_dropdown->setHidden(true);
-    ui->finance_dropdown->setHidden(true);
+    ui->dashboard1->setChecked(true);
 
     connect(ui->dashboard1, &QPushButton::clicked, this, &MainWindow::switch_to_dashboard_page);
     connect(ui->dashboard2, &QPushButton::clicked, this, &MainWindow::switch_to_dashboard_page);
@@ -34,32 +35,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->institution1, &QPushButton::clicked, this, &MainWindow::switch_to_institution_page);
     connect(ui->institution2, &QPushButton::clicked, this, &MainWindow::switch_to_institution_page);
 
-    connect(ui->s_info, &QPushButton::clicked, this, &MainWindow::switch_to_sinfo_page);
-
-    connect(ui->s_transactions, &QPushButton::clicked, this, &MainWindow::switch_to_stransaction_page);
-
-    connect(ui->s_payment, &QPushButton::clicked, this, &MainWindow::switch_to_spayment_page);
-
     connect(ui->t_info, &QPushButton::clicked, this, &MainWindow::switch_to_tinfo_page);
 
     connect(ui->t_salaries, &QPushButton::clicked, this, &MainWindow::switch_to_tsalaries_page);
 
     connect(ui->t_transactions, &QPushButton::clicked, this, &MainWindow::switch_to_ttransaction_page);
-
-    connect(ui->f_budgets, &QPushButton::clicked, this, &MainWindow::switch_to_fbudget_page);
-
-    connect(ui->f_expenses, &QPushButton::clicked, this, &MainWindow::switch_to_fexpenses_page);
-
-    connect(ui->f_overview, &QPushButton::clicked, this, &MainWindow::switch_to_foverview_page);
-
-
-    ui->pushButton_4->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->teacher2->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->finance2->setContextMenuPolicy(Qt::CustomContextMenu);
-
-    connect(ui->pushButton_4, &QPushButton::clicked, this, &MainWindow::students_context_menu); //customContextMenuRequested for Right Click
     connect(ui->teacher2, &QPushButton::clicked, this, &MainWindow::teachers_context_menu);
-    connect(ui->finance2, &QPushButton::clicked, this, &MainWindow::finance_context_menu);
 
     connect(ui->Add_Student, &QPushButton::clicked, this, &MainWindow::Open_Add_Student_Dialog);
 
@@ -87,11 +69,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(ui->searchResultsList, &QListWidget::currentItemChanged, this, &MainWindow::onStudentSelectedFromSearch);
+    connect(ui->btn_saveFee, &QPushButton::clicked, this, &MainWindow::on_btn_saveFee_clicked);
+    connect(ui->searchResultsList, &QListWidget::itemClicked, this, &MainWindow::loadFeesForSelectedStudent);
+
 
     connectToDatabase();
     loadAttendanceForm();
     loadStudentData();
     loadStudentProgressChart();
+    loadTasks();
+    setupFeeTable();
 }
 
 MainWindow::~MainWindow()
@@ -100,23 +87,11 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::switch_to_dashboard_page(){
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainWindow::switch_to_institution_page(){
     ui->stackedWidget->setCurrentIndex(1);
-}
-
-void MainWindow::switch_to_sinfo_page(){
-    ui->stackedWidget->setCurrentIndex(2);
-}
-
-void MainWindow::switch_to_stransaction_page(){
-    ui->stackedWidget->setCurrentIndex(4);
-}
-
-void MainWindow::switch_to_spayment_page(){
-    ui->stackedWidget->setCurrentIndex(3);
 }
 
 void MainWindow::switch_to_tinfo_page(){
@@ -131,32 +106,9 @@ void MainWindow::switch_to_ttransaction_page(){
     ui->stackedWidget->setCurrentIndex(7);
 }
 
-void MainWindow::switch_to_fbudget_page(){
-    ui->stackedWidget->setCurrentIndex(9);
-}
-
-void MainWindow::switch_to_fexpenses_page(){
-    ui->stackedWidget->setCurrentIndex(8);
-}
-
-void MainWindow::switch_to_foverview_page(){
-    ui->stackedWidget->setCurrentIndex(10);
-}
-
-
-void MainWindow::students_context_menu() {
-    QStringList menuItems = {"Student Information", "Student Payments", "Student Transactions"};
-    show_custom_context_menu(ui->pushButton_4, menuItems);
-}
-
 void MainWindow::teachers_context_menu() {
     QStringList menuItems = {"Teacher Information", "Teacher Salaries", "Student Attendance"};
     show_custom_context_menu(ui->teacher2, menuItems);
-}
-
-void MainWindow::finance_context_menu() {
-    QStringList menuItems = {"Budgets", "Expenses", "Bussiness Overview"};
-    show_custom_context_menu(ui->finance2, menuItems);
 }
 
 void MainWindow::show_custom_context_menu(QWidget *button, const QStringList &menu_items) {
@@ -190,29 +142,14 @@ void MainWindow::handle_menu_item_click() {
 
     QString text = action->text();
 
-    if (text == "Student Information") {
-        switch_to_sinfo_page();
-    } else if (text == "Student Payments") {
-        switch_to_spayment_page();
-    } else if (text == "Student Transactions") {
-        switch_to_stransaction_page();
-    }
-    else if (text == "Teacher Information") {
+    if (text == "Teacher Information") {
         switch_to_tinfo_page();
     } else if (text == "Teacher Salaries") {
         switch_to_tsalaries_page();
     }
     else if (text == "Student Attendance") {
         switch_to_ttransaction_page();
-    } else if (text == "Budgets") {
-        switch_to_fbudget_page();
     }
-    else if (text == "Expenses") {
-        switch_to_fexpenses_page();
-    } else if (text == "Bussiness Overview") {
-        switch_to_foverview_page();
-    }
-
 }
 
 
@@ -466,8 +403,8 @@ void MainWindow::editCurrentStudent() {
     currentInfo.className = ui->studentClassLabel->text();
     currentInfo.dob = QDate::fromString(ui->studentDOBLabel->text(), "dd-MM-yyyy");
     currentInfo.imagePath = imagePath;
-    currentInfo.address = "";  // Add if shown in UI
-    currentInfo.gender = "";   // Add if shown in UI
+    currentInfo.address = "";
+    currentInfo.gender = "";
 
     Dialog dialog(this);
     dialog.setWindowTitle("Edit Student Info");
@@ -569,33 +506,49 @@ void MainWindow::submitAttendance() {
 
         QString status = (checkBox && checkBox->isChecked()) ? "Present" : "Absent";
 
+        QSqlQuery idQuery;
+        idQuery.prepare("SELECT id FROM students WHERE roll_no = :roll_no");
+        idQuery.bindValue(":roll_no", rollNo);
+
+        if (!idQuery.exec() || !idQuery.next()) {
+            qDebug() << "Failed to fetch student_id for roll no" << rollNo << ":" << idQuery.lastError().text();
+            continue;
+        }
+
+        int studentId = idQuery.value(0).toInt();
+
         QSqlQuery checkQuery;
         checkQuery.prepare("SELECT COUNT(*) FROM attendance WHERE roll_no = :roll_no AND date = :date");
         checkQuery.bindValue(":roll_no", rollNo);
         checkQuery.bindValue(":date", currentDate);
         checkQuery.exec();
         checkQuery.next();
+
         if (checkQuery.value(0).toInt() > 0) {
             qDebug() << "Attendance already exists for roll no" << rollNo << "on" << currentDate;
             continue;
         }
 
         QSqlQuery query;
-        query.prepare("INSERT INTO attendance (name, roll_no, date, status) VALUES (:name, :roll_no, :date, :status)");
+        query.prepare("INSERT INTO attendance (student_id, name, roll_no, date, status) "
+                      "VALUES (:student_id, :name, :roll_no, :date, :status)");
+        query.bindValue(":student_id", studentId);
         query.bindValue(":name", name);
         query.bindValue(":roll_no", rollNo);
         query.bindValue(":date", currentDate);
         query.bindValue(":status", status);
 
         if (!query.exec()) {
-            qDebug() << "Failed to insert attendance:" << query.lastError().text();
+            qDebug() << "Failed to insert attendance for roll no" << rollNo << ":" << query.lastError().text();
+        } else {
+            qDebug() << "Attendance marked for" << name << "Roll No:" << rollNo << "Status:" << status;
         }
     }
 
     updateAttendancePercentages();
-
     QMessageBox::information(this, "Success", "Attendance submitted and percentages updated.");
 }
+
 
 
 void MainWindow::updateAttendancePercentages() {
@@ -781,3 +734,227 @@ void MainWindow::on_assignMarksButton_clicked()
     dialog->exec();
 }
 
+QList<QVariantMap> MainWindow::getTasks()
+{
+    QList<QVariantMap> tasksList;
+    QSqlQuery query("SELECT * FROM tasks ORDER BY due_date");
+    while (query.next()) {
+        QVariantMap task;
+        task["id"] = query.value("id");
+        task["topic"] = query.value("topic");
+        task["task_type"] = query.value("task_type");
+        task["subject"] = query.value("subject");
+        task["class"] = query.value("class");
+        task["due_date"] = query.value("due_date");
+        task["pdf_path"] = query.value("pdf_path");
+        tasksList.append(task);
+    }
+    return tasksList;
+}
+
+void MainWindow::loadTasks() {
+    QVBoxLayout *layout = new QVBoxLayout(ui->tasksWidget);
+    QSqlQuery query("SELECT * FROM tasks ORDER BY due_date");
+
+    while (query.next()) {
+        QString topic = query.value("topic").toString();
+        QString type = query.value("task_type").toString();
+        QString subject = query.value("subject").toString();
+        QString dueDate = query.value("due_date").toDate().toString("yyyy-MM-dd");
+        QString pdfPath = query.value("pdf_path").toString();
+
+        QLabel *label = new QLabel(QString("%1 | %2 | %3 | Due: %4")
+                                       .arg(type.toUpper(), subject, topic, dueDate));
+        label->setStyleSheet("font-weight: bold; margin-bottom: 5px;");
+
+        QPushButton *openButton = new QPushButton("Open PDF");
+        connect(openButton, &QPushButton::clicked, this, [pdfPath]() {
+            QDesktopServices::openUrl(QUrl::fromLocalFile(pdfPath));
+        });
+
+        QWidget *taskContainer = new QWidget;
+        QHBoxLayout *taskLayout = new QHBoxLayout(taskContainer);
+        taskLayout->addWidget(label);
+        taskLayout->addStretch();
+        taskLayout->addWidget(openButton);
+        taskContainer->setStyleSheet("margin-bottom: 10px;");
+
+        layout->addWidget(taskContainer);
+    }
+
+    layout->addStretch();
+}
+
+void MainWindow::clearLayout(QLayout *layout)
+{
+    if (!layout)
+        return;
+
+    while (QLayoutItem *item = layout->takeAt(0)) {
+        if (QWidget *widget = item->widget()) {
+            widget->deleteLater();
+        }
+        delete item;
+    }
+}
+
+// Get selected student name from the list widget
+QString MainWindow::getSelectedStudentName() {
+    QListWidgetItem* selectedItem = ui->searchResultsList->currentItem();
+    if (!selectedItem) return QString();
+    return selectedItem->text();
+}
+
+// Get student ID by querying the database using the student's name
+int MainWindow::getStudentIdByName(const QString &name) {
+    if (name.isEmpty()) return -1;
+
+    QSqlQuery query;
+    query.prepare("SELECT id FROM students WHERE name = :name LIMIT 1");
+    query.bindValue(":name", name);
+
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt();
+    }
+    return -1;  // student not found
+}
+
+// Load fees for the currently selected student (by name -> id -> fees)
+void MainWindow::loadFeesForSelectedStudent() {
+    QString studentName = getSelectedStudentName();
+    if (studentName.isEmpty()) return;
+
+    int studentId = getStudentIdByName(studentName);
+    if (studentId == -1) {
+        qDebug() << "Student not found with name:" << studentName;
+        ui->fee_table->setRowCount(0);
+        ui->label_totalPaid->setText("Total Paid: 0");
+        ui->label_outstanding->setText("Outstanding: 0");
+        ui->label_lastPaid->setText("Last Paid Date: N/A");
+        return;
+    }
+
+    qDebug() << "Loading fees for student ID:" << studentId;
+
+    QSqlQuery query;
+    query.prepare("SELECT id, month, due_date, amount, status, paid_date FROM fees WHERE student_id = :student_id");
+    query.bindValue(":student_id", studentId);
+
+    if (!query.exec()) {
+        qDebug() << "Failed to load fees:" << query.lastError();
+        return;
+    }
+
+    ui->fee_table->setRowCount(0); // Clear previous data
+
+    double totalPaid = 0.0;
+    double outstanding = 0.0;
+    QDate lastPaidDate;
+
+    while (query.next()) {
+        QString month = query.value("month").toString();
+        QDate dueDate = query.value("due_date").toDate();
+        double amount = query.value("amount").toDouble();
+        QString status = query.value("status").toString();
+        QDate paidDate = query.value("paid_date").toDate();
+
+        addFeeRow(month, dueDate, amount, status);
+
+        if (status == "Paid") {
+            totalPaid += amount;
+            if (!paidDate.isNull() && (lastPaidDate.isNull() || paidDate > lastPaidDate))
+                lastPaidDate = paidDate;
+        } else {
+            outstanding += amount;
+        }
+    }
+
+    ui->label_totalPaid->setText(QString::number(totalPaid));
+    ui->label_outstanding->setText(QString::number(outstanding));
+    ui->label_lastPaid->setText((lastPaidDate.isValid() ? lastPaidDate.toString("yyyy-MM-dd") : "N/A"));
+}
+
+// Add a single fee row in the fee_table
+void MainWindow::addFeeRow(QString month, QDate dueDate, double amount, QString fee_status) {
+    int row = ui->fee_table->rowCount();
+    ui->fee_table->insertRow(row);
+
+    ui->fee_table->setItem(row, 0, new QTableWidgetItem(month));
+    ui->fee_table->setItem(row, 1, new QTableWidgetItem(dueDate.toString("yyyy-MM-dd")));
+    ui->fee_table->setItem(row, 2, new QTableWidgetItem(QString::number(amount)));
+    ui->fee_table->setItem(row, 3, new QTableWidgetItem(fee_status));
+
+    QPushButton* btn = new QPushButton("Mark Paid");
+    btn->setEnabled(fee_status != "Paid");
+    ui->fee_table->setCellWidget(row, 4, btn);
+
+    // Connect button click to markFeePaid function for this row
+    connect(btn, &QPushButton::clicked, [=]() {
+        markFeePaid(row);
+    });
+}
+
+// Mark a fee as paid for the selected student and fee row
+void MainWindow::markFeePaid(int row) {
+    QString studentName = getSelectedStudentName();
+    if (studentName.isEmpty()) return;
+
+    int studentId = getStudentIdByName(studentName);
+    if (studentId == -1) return;
+
+    QString month = ui->fee_table->item(row, 0)->text();
+
+    QSqlQuery query;
+    query.prepare("UPDATE fees SET status = 'Paid', paid_date = CURDATE() WHERE student_id = :student_id AND month = :month");
+    query.bindValue(":student_id", studentId);
+    query.bindValue(":month", month);
+
+    if (!query.exec()) {
+        qDebug() << "Failed to mark paid:" << query.lastError();
+        return;
+    }
+
+    // Update UI directly
+    ui->fee_table->item(row, 3)->setText("Paid");
+    QWidget* widget = ui->fee_table->cellWidget(row, 4);
+    if (QPushButton* btn = qobject_cast<QPushButton*>(widget)) {
+        btn->setEnabled(false);
+    }
+
+    loadFeesForSelectedStudent(); // Refresh the table and summary labels
+}
+
+// Insert a new fee record for the selected student
+void MainWindow::on_btn_saveFee_clicked() {
+    QString studentName = getSelectedStudentName();
+    if (studentName.isEmpty()) return;
+
+    int studentId = getStudentIdByName(studentName);
+    if (studentId == -1) return;
+
+    QString month = ui->combo_month->currentText();
+    QDate dueDate = ui->date_due->date();
+    double amount = ui->line_amount->text().toDouble();
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO fees (student_id, month, due_date, amount) VALUES (:student_id, :month, :due_date, :amount)");
+    query.bindValue(":student_id", studentId);
+    query.bindValue(":month", month);
+    query.bindValue(":due_date", dueDate);
+    query.bindValue(":amount", amount);
+
+    if (!query.exec()) {
+        qDebug() << "Insert failed:" << query.lastError();
+        return;
+    }
+
+    loadFeesForSelectedStudent();
+}
+
+// Setup fee table headers and layout
+void MainWindow::setupFeeTable() {
+    ui->fee_table->setColumnCount(5);
+    QStringList headers = {"Month", "Due Date", "Amount", "Status", "Actions"};
+    ui->fee_table->setHorizontalHeaderLabels(headers);
+    ui->fee_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
