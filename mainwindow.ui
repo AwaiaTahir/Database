@@ -139,8 +139,8 @@ QPushButton:checked{
             </property>
             <property name="icon">
              <iconset resource="Icons.qrc">
-              <normaloff>:/new/prefix1/RE/institutionsmall1.png</normaloff>
-              <normalon>:/new/prefix1/RE/institutionsmall2.png</normalon>:/new/prefix1/RE/institutionsmall1.png</iconset>
+              <normaloff>:/new/prefix1/RE/financessmall1.png</normaloff>
+              <normalon>:/new/prefix1/RE/financessmall2.png</normalon>:/new/prefix1/RE/financessmall1.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -295,7 +295,7 @@ QPushButton{
              </font>
             </property>
             <property name="text">
-             <string>Academy</string>
+             <string>Paradigm</string>
             </property>
            </widget>
           </item>
@@ -345,27 +345,33 @@ QPushButton:checked{
           </item>
           <item>
            <widget class="QPushButton" name="institution1">
+            <property name="font">
+             <font>
+              <pointsize>8</pointsize>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
-	padding-left:-65px;
+	padding-left:-50px;
 }
 
 QPushButton:checked{
 	background-color:white;
 	border-radius:3px;
+	color : #34D481;
 }</string>
             </property>
             <property name="text">
-             <string/>
+             <string>   Manage Fees</string>
             </property>
             <property name="icon">
              <iconset resource="Icons.qrc">
-              <normaloff>:/new/prefix1/RE/institution2.png</normaloff>
-              <normalon>:/new/prefix1/RE/institution1.png</normalon>:/new/prefix1/RE/institution2.png</iconset>
+              <normaloff>:/new/prefix1/RE/financessmall1.png</normaloff>
+              <normalon>:/new/prefix1/RE/financessmall2.png</normalon>:/new/prefix1/RE/financessmall1.png</iconset>
             </property>
             <property name="iconSize">
              <size>
-              <width>95</width>
+              <width>80</width>
               <height>25</height>
              </size>
             </property>
@@ -625,7 +631,7 @@ QPushButton:checked{
                  </font>
                 </property>
                 <property name="text">
-                 <string>Hello, World</string>
+                 <string>Hello</string>
                 </property>
                </widget>
               </item>
@@ -1088,7 +1094,7 @@ QTableWidget QCheckBox {
              <string>Save</string>
             </property>
            </widget>
-           <widget class="QWidget" name="">
+           <widget class="QWidget" name="layoutWidget">
             <property name="geometry">
              <rect>
               <x>176</x>
@@ -1204,7 +1210,7 @@ QComboBox{
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="">
+           <widget class="QWidget" name="layoutWidget">
             <property name="geometry">
              <rect>
               <x>176</x>
@@ -1260,7 +1266,7 @@ QComboBox{
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="">
+           <widget class="QWidget" name="layoutWidget">
             <property name="geometry">
              <rect>
               <x>176</x>

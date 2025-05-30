@@ -152,6 +152,20 @@ void MainWindow::handle_menu_item_click() {
     }
 }
 
+// void MainWindow::connectToDatabase() {
+//     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+//     db.setHostName("gateway01.eu-central-1.prod.aws.tidbcloud.com");
+//     db.setPort(4000);
+//     db.setDatabaseName("test");
+//     db.setUserName("3EJLwsrDq3vj7qm.root");
+//     db.setPassword("WjazBzS2bB7ip5qO");
+
+//     if (!db.open()) {
+//         qDebug() << "Database connection failed:" << db.lastError().text();
+//     } else {
+//         qDebug() << "Connected to TiDB Cloud successfully!";
+//     }
+// }
 
 
 void MainWindow::connectToDatabase() {
@@ -798,14 +812,13 @@ void MainWindow::clearLayout(QLayout *layout)
     }
 }
 
-// Get selected student name from the list widget
+
 QString MainWindow::getSelectedStudentName() {
     QListWidgetItem* selectedItem = ui->searchResultsList->currentItem();
     if (!selectedItem) return QString();
     return selectedItem->text();
 }
 
-// Get student ID by querying the database using the student's name
 int MainWindow::getStudentIdByName(const QString &name) {
     if (name.isEmpty()) return -1;
 
@@ -816,10 +829,9 @@ int MainWindow::getStudentIdByName(const QString &name) {
     if (query.exec() && query.next()) {
         return query.value(0).toInt();
     }
-    return -1;  // student not found
+    return -1;
 }
 
-// Load fees for the currently selected student (by name -> id -> fees)
 void MainWindow::loadFeesForSelectedStudent() {
     QString studentName = getSelectedStudentName();
     if (studentName.isEmpty()) return;
@@ -845,7 +857,7 @@ void MainWindow::loadFeesForSelectedStudent() {
         return;
     }
 
-    ui->fee_table->setRowCount(0); // Clear previous data
+    ui->fee_table->setRowCount(0);
 
     double totalPaid = 0.0;
     double outstanding = 0.0;
@@ -874,7 +886,6 @@ void MainWindow::loadFeesForSelectedStudent() {
     ui->label_lastPaid->setText((lastPaidDate.isValid() ? lastPaidDate.toString("yyyy-MM-dd") : "N/A"));
 }
 
-// Add a single fee row in the fee_table
 void MainWindow::addFeeRow(QString month, QDate dueDate, double amount, QString fee_status) {
     int row = ui->fee_table->rowCount();
     ui->fee_table->insertRow(row);
@@ -888,13 +899,11 @@ void MainWindow::addFeeRow(QString month, QDate dueDate, double amount, QString 
     btn->setEnabled(fee_status != "Paid");
     ui->fee_table->setCellWidget(row, 4, btn);
 
-    // Connect button click to markFeePaid function for this row
     connect(btn, &QPushButton::clicked, [=]() {
         markFeePaid(row);
     });
 }
 
-// Mark a fee as paid for the selected student and fee row
 void MainWindow::markFeePaid(int row) {
     QString studentName = getSelectedStudentName();
     if (studentName.isEmpty()) return;
@@ -914,17 +923,16 @@ void MainWindow::markFeePaid(int row) {
         return;
     }
 
-    // Update UI directly
     ui->fee_table->item(row, 3)->setText("Paid");
     QWidget* widget = ui->fee_table->cellWidget(row, 4);
     if (QPushButton* btn = qobject_cast<QPushButton*>(widget)) {
         btn->setEnabled(false);
     }
 
-    loadFeesForSelectedStudent(); // Refresh the table and summary labels
+    loadFeesForSelectedStudent();
 }
 
-// Insert a new fee record for the selected student
+
 void MainWindow::on_btn_saveFee_clicked() {
     QString studentName = getSelectedStudentName();
     if (studentName.isEmpty()) return;
@@ -951,7 +959,7 @@ void MainWindow::on_btn_saveFee_clicked() {
     loadFeesForSelectedStudent();
 }
 
-// Setup fee table headers and layout
+
 void MainWindow::setupFeeTable() {
     ui->fee_table->setColumnCount(5);
     QStringList headers = {"Month", "Due Date", "Amount", "Status", "Actions"};
